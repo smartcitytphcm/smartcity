@@ -66,7 +66,7 @@ router.post('/uploadImage/:param', urlencodedParser, function (req, res, next) {
         var id_WD = req.params.param;
         var namefile = id_WD +"_capnhatCV_"+ taikhoan;
         if (err) { throw err;}
-        console.log(files.upload.path)
+        console.log("hình up lên có path là: " + files.upload.path)
         upLoadDriveImage(files.upload.path, namefile , id_WD , null);
     });
 
