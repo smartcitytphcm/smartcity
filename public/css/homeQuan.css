@@ -3,7 +3,7 @@
 		width: 768px;
 	}
 	.modal-sm {
-		width: 60%;
+		width: 98%;
 	}
 }
 
@@ -12,7 +12,7 @@
 		width: 970px;
 	}
 	.modal-sm {
-		width: 60%;
+		width: 98%;
 	}
 }
 
@@ -21,7 +21,7 @@
 		width: 1170px;
 	}
 	.modal-sm {
-		width: 60%;
+		width: 98%;
 	}
 }
 
@@ -87,4 +87,8 @@ section{
 }
 #divPhuong{
 	border: 1px solid;
+}
+.table-bordered-fix {
+	border-top: 1px solid #000;
+	padding-top: 5px;
 }
