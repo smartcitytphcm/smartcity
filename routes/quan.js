@@ -192,7 +192,7 @@ router.post('/duyet', function (req, res, next) {
         upLoadDrive(file + QDXP + '.docx', QDXP + '.docx', idViD, 4)
         upLoadDrive(file + TTQDCC + '.docx', TTQDCC + '.docx', idViD, 5)
         upLoadDrive(file + QDCC + '.docx', QDCC + '.docx', idViD, 6)
-    }, 100)
+    }, 500)
     res.redirect('../quan/xuphatQuan')
 })
 
