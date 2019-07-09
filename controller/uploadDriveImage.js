@@ -16,8 +16,8 @@ module.exports = function (sourcefile, namefile, idWD, idVi) {
   // created automatically when the authorization flow completes for the first
   // time.
 
-  // const TOKEN_PATH = './controller/configurationDrive/main/token.json';  //main 
-  const TOKEN_PATH = './controller/configurationDrive/test/token.json'; //test
+   const TOKEN_PATH = './controller/configurationDrive/main/token.json';  //main 
+  // const TOKEN_PATH = './controller/configurationDrive/test/token.json'; //test
 
   // Load client secrets from a local file.
   // fs.readFile('./controller/configurationDrive/main/credentials.json', (err, content) => {  //main
