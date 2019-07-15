@@ -230,10 +230,21 @@
 												</div>
 											</div>
 											<div class="group2 col-md-6">
-												<div class="form-group">
+												<div class="form-group col-md-4">
 													<label>Số biên bản</label>
 													<input type="text" class="form-control" name="soBB" id="soBB">
 													<label style="display: none" id="IdSoBB"></label>
+												</div>
+												<div class="form-group col-md-4">
+													<label>Giờ lập biên bản</label>
+													<input type="time" class="form-control" name="gioLBB" id="gioLBB" />
+													<label style="display: none" id="IdgioLBB"></label>
+												</div>
+												<div class="form-group col-md-4">
+													<label>Ngày lập biên bản</label>
+													<input type="date" class="form-control" name="thoigianLBB"
+														id="thoigianLBB" />
+													<label style="display: none" id="IdThoigianLBB"></label>
 												</div>
 												<div class="form-group">
 													<label>Địa chỉ</label>
@@ -247,18 +258,6 @@
 														id="thoigianVP">
 													<label style="display: none" id="IdThoigianVP"></label>
 												</div>
-												<div class="form-group">
-													<label>Giờ lập biên bản</label>
-													<input type="time" class="form-control" name="gioLBB" id="gioLBB" />
-													<label style="display: none" id="IdgioLBB"></label>
-												</div>
-												<div class="form-group">
-													<label>Ngày lập biên bản</label>
-													<input type="date" class="form-control" name="thoigianLBB"
-														id="thoigianLBB" />
-													<label style="display: none" id="IdThoigianLBB"></label>
-												</div>
-
 												<div class="form-group">
 													<label>Nội dung xử phạt</label>
 													<div id="content">
@@ -497,7 +496,7 @@
 															data-target="#ModalUpload<%=rows.idVi%>" disabled>Thêm hình</button>
 													<%} else {%>
 															<button type="button" class="btnadd btn btn-primary" data-toggle="modal"
-															data-target="#ModalUpload<%=rows.idVi%>">Thêm hình</button>
+															data-target="#ModalUpload<%=rows.idVi%>" disabled>Thêm hình</button>
 													<%}%>
 											</div>
 										</div>
@@ -618,9 +617,26 @@
 															<!-- <h5>&nbsp;&nbsp;<%=rows.idVi%></h5> -->
 															<input type="text" class="form-control" value="<%=rows.idVi%>"
 																name="idVP" readonly>
+														</div>
+														<div class="form-group col-md-4">
 															<label>Số biên bản</label>
 															<input type="text" class="form-control"
 																value="<%=rows.soBB%>" name="soBB">
+														</div>
+														<div class="form-group col-md-4">
+															<label>Giờ lập biên bản</label>
+															<input type="time"
+																class="form-control"
+																value="<%=rows.gioLBB%>" name="gioLBB">
+														</div>														
+														<div class="form-group col-md-4">
+															<label>Ngày lập biên bản</label>
+															<input type="date"
+																class="form-control contentLBB<%=rows.idVi%>"
+																id="ngaylbb<%=rows.idVi%>" name="thoigianLBB">
+														</div>
+														<div class="form-group"></div>
+														<div class="form-group">	
 															<label>Địa chỉ</label>
 															<input type="text" class="form-control"
 																value="<%=rows.diachiVP%>" name="diachiVP">
@@ -639,19 +655,6 @@
 																class="form-control contentVP<%=rows.idVi%>"
 																id="ngayvp<%=rows.idVi%>" name="thoigianVP">
 														</div>
-														<div class="form-group">
-															<label>Giờ lập biên bản</label>
-															<input type="time"
-																class="form-control"
-																value="<%=rows.gioLBB%>" name="gioLBB">
-														</div>
-														<div class="form-group">
-															<label>Ngày lập biên bản</label>
-															<input type="date"
-																class="form-control contentLBB<%=rows.idVi%>"
-																id="ngaylbb<%=rows.idVi%>" name="thoigianLBB">
-														</div>
-
 														<div class="form-group">
 
 															<label>Nội dung xử phạt</label>

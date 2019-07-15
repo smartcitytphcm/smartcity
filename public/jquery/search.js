@@ -61,10 +61,10 @@ function LoadDataUser(listUser){
             document.getElementById("sdt").value = user.sdt;
             document.getElementById("nghenghiep").value = user.nghenghiep;
 
-            if (user.gioitinh == 1)
-                document.getElementById("gioitinh_nam").checked = true;
+            if (user.gioitinh === 1)
+               { document.getElementById("gioitinh_nam").checked = true;}
             else
-                document.getElementById("gioitinh_nu").checked = true;
+               { document.getElementById("gioitinh_nu").checked = true;}
             return;
         }
     });

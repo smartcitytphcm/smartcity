@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
         con.query('SELECT *, wd.id as idWD, im.id as idIM FROM `work_daily` wd left join `images` im on wd.id = im.id_WD, `account` acc WHERE wd.id_acc = acc.username order by ngayTT DESC, thoigianthuc DESC', (err, results) => {
             if (err) throw err;
             else {
-                con.query('SELECT * FROM `account` where id_auth = 2', (err, results_acc)=>{
+                con.query('SELECT * FROM `account` where id_auth = 2 order by `count_acc` asc', (err, results_acc)=>{
                     console.log(results);
                     res.render('trangchuQuan', { results, results_acc, taikhoan});
                     
@@ -192,7 +192,7 @@ router.post('/duyet', function (req, res, next) {
         upLoadDrive(file + QDXP + '.docx', QDXP + '.docx', idViD, 4)
         upLoadDrive(file + TTQDCC + '.docx', TTQDCC + '.docx', idViD, 5)
         upLoadDrive(file + QDCC + '.docx', QDCC + '.docx', idViD, 6)
-    }, 500)
+    }, 600)
     res.redirect('../quan/xuphatQuan')
 })
 

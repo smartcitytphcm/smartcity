@@ -327,6 +327,29 @@
 																<input type="hidden" class="form-control"
 																	value="<%=rows.soBB%>" name="soBBD">
 															</div>
+															<div class="form-group">
+																<div class="row">
+																	<div class="col-xs-5 col-md-5">
+																		<h5><b>Giờ lập biên bản:</b></h5>
+																	</div>
+																	<div class="col-xs-6 col-md-6"><h5><%=rows.gioLBB%></h5></div>
+																</div>
+																
+																<input type="hidden" class="form-control"
+																		value="<%=rows.gioLBB%>" name="gioLBBD">
+															</div>
+															<div class="form-group">
+																<div class="row">
+																	<div class="col-xs-5 col-md-5">
+																		<h5><b>Ngày lập biên bản:</b></h5>
+																	</div>
+																	<div class="col-xs-6 col-md-6"><h5 id="ngayLBB<%=rows.id%>"></h5></div>
+																</div>
+																
+																<input type="hidden" class="form-control"
+																	value="<%=rows.thoigianLBB%>" name="thoigianLBBD"
+																	id="ngaylbb<%=rows.id%>">
+															</div>
 														<div class="form-group">
 															<div class="row">
 																<div class="col-xs-5 col-md-5">
@@ -357,29 +380,7 @@
 																value="<%=rows.thoigianVP%>" name="thoigianVPD"
 																id="ngayvp<%=rows.id%>">
 														</div>
-														<div class="form-group">
-															<div class="row">
-																<div class="col-xs-5 col-md-5">
-																	<h5><b>Giờ lập biên bản:</b></h5>
-																</div>
-																<div class="col-xs-6 col-md-6"><h5><%=rows.gioLBB%></h5></div>
-															</div>
-															
-															<input type="hidden" class="form-control"
-																	value="<%=rows.gioLBB%>" name="gioLBBD">
-														</div>
-														<div class="form-group">
-															<div class="row">
-																<div class="col-xs-5 col-md-5">
-																	<h5><b>Ngày lập biên bản:</b></h5>
-																</div>
-																<div class="col-xs-6 col-md-6"><h5 id="ngayLBB<%=rows.id%>"></h5></div>
-															</div>
-															
-															<input type="hidden" class="form-control"
-																value="<%=rows.thoigianLBB%>" name="thoigianLBBD"
-																id="ngaylbb<%=rows.id%>">
-														</div>
+														
 														<div class="form-group">
 															<h5><b>Nội dung xử phạt:</b></h5>
 															<%results_content.forEach(function(rows_content){
