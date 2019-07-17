@@ -167,9 +167,9 @@
 						<td><%=rows.nameAc%></td>
 						<td><%=(rows.tinhtrang == 1?"Đã xử lý":"Chưa xử lý")%></td>
 						<td><button type="button" class="btnadd btn btn-danger" data-toggle="modal"
-								data-target="#ModalEdit<%=rows.id%>" id_quan="<%=rows.id%>">Xem</button>
+								data-target="#ModalEdit<%=rows.idVi%>" id_quan="<%=rows.idVi%>">Xem</button>
 							<!-- Modal -->
-							<div class="modal fade" id="ModalEdit<%=rows.id%>" role="dialog">
+							<div class="modal fade" id="ModalEdit<%=rows.idVi%>" role="dialog">
 								<div class="modal-dialog modal-sm modalShowInfo_Quan">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -211,11 +211,11 @@
 																<div class="col-xs-5 col-md-5">
 																	<h5><b>Ngày cấp</b></h5>
 																</div>
-																<div class="col-xs-6 col-md-6"><h5 id="ngayCap<%=rows.id%>"></h5></div>
+																<div class="col-xs-6 col-md-6"><h5 id="ngayCap<%=rows.idVi%>"></h5></div>
 															</div>
 															<input type="hidden" class="form-control"
 																value="<%=rows.ngaycap%>" name="ngaycapD"
-																id="ngaycap<%=rows.id%>" />
+																id="ngaycap<%=rows.idVi%>" />
 														</div>
 														<div class="form-group">
 															<div class="row">
@@ -244,12 +244,12 @@
 																<div class="col-xs-5 col-md-5">
 																	<h5><b>Ngày sinh:</b></h5>
 																</div>
-																<div class="col-xs-6 col-md-6"><h5 id="ngaySinh<%=rows.id%>"></h5></div>
+																<div class="col-xs-6 col-md-6"><h5 id="ngaySinh<%=rows.idVi%>"></h5></div>
 															</div>
 															
 															<input type="hidden" class="form-control"
 																value="<%=rows.ngaysinh%>" name="ngaysinhD"
-																id="ngaysinh<%=rows.id%>">
+																id="ngaysinh<%=rows.idVi%>">
 														</div>
 														<div class="form-group">
 															<%if (rows.gioitinh == 1) {%>
@@ -343,12 +343,12 @@
 																	<div class="col-xs-5 col-md-5">
 																		<h5><b>Ngày lập biên bản:</b></h5>
 																	</div>
-																	<div class="col-xs-6 col-md-6"><h5 id="ngayLBB<%=rows.id%>"></h5></div>
+																	<div class="col-xs-6 col-md-6"><h5 id="ngayLBB<%=rows.idVi%>"></h5></div>
 																</div>
 																
 																<input type="hidden" class="form-control"
 																	value="<%=rows.thoigianLBB%>" name="thoigianLBBD"
-																	id="ngaylbb<%=rows.id%>">
+																	id="ngaylbb<%=rows.idVi%>">
 															</div>
 														<div class="form-group">
 															<div class="row">
@@ -373,12 +373,12 @@
 																<div class="col-xs-5 col-md-5">
 																	<h5><b>Thời điểm vi phạm</b></h5>
 																</div>
-																<div class="col-xs-6 col-md-6"><h5 id="ngayVP<%=rows.id%>"></h5></div>
+																<div class="col-xs-6 col-md-6"><h5 id="ngayVP<%=rows.idVi%>"></h5></div>
 															</div>
 															
 															<input type="hidden" class="form-control"
 																value="<%=rows.thoigianVP%>" name="thoigianVPD"
-																id="ngayvp<%=rows.id%>">
+																id="ngayvp<%=rows.idVi%>">
 														</div>
 														
 														<div class="form-group">
@@ -450,14 +450,14 @@
 															var ngayvp = convert('<%=rows.thoigianVP%>')
 															var ngayLBB = convert('<%=rows.thoigianLBB%>');
 
-															document.getElementById("ngayCap<%=rows.id%>").innerHTML= ngayCap;
-															document.getElementById("ngaycap<%=rows.id%>").value= ngayCap;
-															document.getElementById("ngaySinh<%=rows.id%>").innerHTML= ngaySinh;
-															document.getElementById("ngaysinh<%=rows.id%>").value= ngaySinh;
-															document.getElementById("ngayVP<%=rows.id%>").innerHTML= ngayVP;
-															document.getElementById("ngayvp<%=rows.id%>").value= ngayVP;
-															document.getElementById("ngayLBB<%=rows.id%>").innerHTML= ngayLBB;
-															document.getElementById("ngaylbb<%=rows.id%>").value= ngayLBB;
+															document.getElementById("ngayCap<%=rows.idVi%>").innerHTML= ngayCap;
+															document.getElementById("ngaycap<%=rows.idVi%>").value= ngayCap;
+															document.getElementById("ngaySinh<%=rows.idVi%>").innerHTML= ngaySinh;
+															document.getElementById("ngaysinh<%=rows.idVi%>").value= ngaySinh;
+															document.getElementById("ngayVP<%=rows.idVi%>").innerHTML= ngayVP;
+															document.getElementById("ngayvp<%=rows.idVi%>").value= ngayVP;
+															document.getElementById("ngayLBB<%=rows.idVi%>").innerHTML= ngayLBB;
+															document.getElementById("ngaylbb<%=rows.idVi%>").value= ngayLBB;
 														</script>
 																</div>
 															</div>

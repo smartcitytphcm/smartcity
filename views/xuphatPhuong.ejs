@@ -230,21 +230,25 @@
 												</div>
 											</div>
 											<div class="group2 col-md-6">
-												<div class="form-group col-md-4">
-													<label>Số biên bản</label>
-													<input type="text" class="form-control" name="soBB" id="soBB">
-													<label style="display: none" id="IdSoBB"></label>
-												</div>
-												<div class="form-group col-md-4">
-													<label>Giờ lập biên bản</label>
-													<input type="time" class="form-control" name="gioLBB" id="gioLBB" />
-													<label style="display: none" id="IdgioLBB"></label>
-												</div>
-												<div class="form-group col-md-4">
-													<label>Ngày lập biên bản</label>
-													<input type="date" class="form-control" name="thoigianLBB"
-														id="thoigianLBB" />
-													<label style="display: none" id="IdThoigianLBB"></label>
+												<div class="form-group">
+													<div class="row">
+														<div class="col-xs-4 col-sm-4 col-md-4">
+															<label>Số biên bản</label>
+															<input type="text" class="form-control" name="soBB" id="soBB">
+															<label style="display: none" id="IdSoBB"></label>
+														</div>
+														<div class="col-xs-4 col-sm-4 col-md-4">
+															<label>Giờ lập biên bản</label>
+															<input type="time" class="form-control" name="gioLBB" id="gioLBB">
+															<label style="display: none" id="IdgioLBB"></label>
+														</div>
+														<div class="col-xs-4 col-sm-4 col-md-4">
+															<label>Ngày lập biên bản</label>
+															<input type="date" class="form-control" name="thoigianLBB"
+																id="thoigianLBB" />
+															<label style="display: none" id="IdThoigianLBB"></label>
+														</div>
+													</div>
 												</div>
 												<div class="form-group">
 													<label>Địa chỉ</label>
@@ -612,34 +616,37 @@
 														</div>
 													</div>
 													<div class="group2 col-md-6">
+															<div class="form-group">
+																<label>Mã công trình</label>
+																<input type="text" class="form-control"
+																		value="<%=rows.idVi%>" readonly>
+																<input type="hidden" class="form-control" value="<%=rows.idVi%>"
+																		name="idVP" readonly> <!--req.body.idVi lấy dữ liệu từ view-->
+															</div>
+															<div class="form-group">																			
+															
+																	<div class="row">
+																		<div class="col-xs-4 col-sm-4 col-md-4">
+																			<label>Số biên bản</label>
+																			<input type="text" class="form-control" 
+																				value="<%=rows.soBB%>" name="soBB">
+																		</div>
+																		<div class="col-xs-4 col-sm-4 col-md-4">
+																			<label>Giờ lập biên bản</label>
+																			<input type="time" class="form-control"
+																				value="<%=rows.gioLBB%>" name="gioLBB">
+																		</div>
+																		<div class="col-xs-4 col-sm-4 col-md-4">
+																			<label>Ngày lập biên bản</label>
+																			<input type="date" class="form-control contentLBB<%=rows.idVi%>"
+																				id="ngaylbb<%=rows.idVi%>" name="thoigianLBB">
+																		</div>
+																	</div>	
+																</div>
 														<div class="form-group">
-															<label>Mã công trình</label>
-															<!-- <h5>&nbsp;&nbsp;<%=rows.idVi%></h5> -->
-															<input type="text" class="form-control" value="<%=rows.idVi%>"
-																name="idVP" readonly>
-														</div>
-														<div class="form-group col-md-4">
-															<label>Số biên bản</label>
-															<input type="text" class="form-control"
-																value="<%=rows.soBB%>" name="soBB">
-														</div>
-														<div class="form-group col-md-4">
-															<label>Giờ lập biên bản</label>
-															<input type="time"
-																class="form-control"
-																value="<%=rows.gioLBB%>" name="gioLBB">
-														</div>														
-														<div class="form-group col-md-4">
-															<label>Ngày lập biên bản</label>
-															<input type="date"
-																class="form-control contentLBB<%=rows.idVi%>"
-																id="ngaylbb<%=rows.idVi%>" name="thoigianLBB">
-														</div>
-														<div class="form-group"></div>
-														<div class="form-group">	
-															<label>Địa chỉ</label>
-															<input type="text" class="form-control"
-																value="<%=rows.diachiVP%>" name="diachiVP">
+																	<label>Địa chỉ</label>
+																	<input type="text" class="form-control"
+																		value="<%=rows.diachiVP%>" name="diachiVP">
 														</div>
 														<div class="form-group">
 															<label>Hình ảnh công trình</label></br>
@@ -656,7 +663,6 @@
 																id="ngayvp<%=rows.idVi%>" name="thoigianVP">
 														</div>
 														<div class="form-group">
-
 															<label>Nội dung xử phạt</label>
 															<%results_content.forEach(function(rows_content){
 																	if (rows_content.id_violation === rows.idVi){ %>
