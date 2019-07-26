@@ -134,5 +134,5 @@ CREATE table images_workdaily(
     `url` varchar(255) not null,
     `id_WD` int(10) not null,
     FOREIGN key (`id_WD`) REFERENCES `work_daily`(`id`)
-)
+);
 

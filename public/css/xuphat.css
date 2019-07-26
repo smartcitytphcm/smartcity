@@ -1,3 +1,20 @@
+@media (min-width: 768px){
+	.container {
+		width: 768px;
+	}
+}
+
+@media (min-width: 992px){
+	.container {
+		width: 970px;
+	}
+}
+
+@media (min-width: 1200px){
+	.container {
+		width: 1170px;
+	}
+}
 .container{
 	padding-left: 15px;
 	padding-right: 15px;
@@ -40,12 +57,19 @@ section{
 .modal-content{
 	border-radius: 0;
 }
+
 .btnadd{
 	border-radius: 0;
 }
 .btn1{
 	margin-right:20px;
 	border-radius: 0;
+}
+.btnEdit{
+	padding-left: 0px;
+}
+.btn{
+	margin: 0 10px 0 0;
 }
 .modal-sm{
 	width: 80%;

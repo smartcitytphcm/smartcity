@@ -5,7 +5,7 @@ const con = require('./connectDB')
 
 papo.use(new LocalStrategy(
     (username, password, done) => {
-        con.query("SELECT * FROM `account` WHERE `username` = '" + username + "'", function (err, rows) {
+        con.query("SELECT * FROM `account` WHERE `username` = ?" ,[username], function (err, rows) {
             if (err)
                 return done(err);
             if (!rows.length) {
