@@ -33,16 +33,10 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`username`, `password`, `nameAc`, `id_auth`) VALUES
-('taythanh', 'taythanh123', 'Phường Tây Thạnh', 2),
-('sonky', 'sonky123', 'Phường Sơn Kỳ', 2),
-('tanquy', 'tanquy123', 'Phường Tân Quý', 2),
-('tansannhi', 'tansannhi123', 'Phường Tân Sân Nhì', 2),
-('tanthanh', 'tanthanh123', 'Phường Tân Thành', 2),
-('phuthohoa', 'phuthohoa123', 'Phường Phú Thọ Hòa', 2),
+('hieptan', 'hieptan123', 'Phường Hiệp Tân', 2),
 ('hoathanh', 'hoathanh123', 'Phường Hòa Thạnh', 2),
 ('phuthanh', 'phuthanh123', 'Phường Phú Thạnh', 2),
-('hieptan', 'hieptan123', 'Phường Hiệp Tân', 2),
-('tanthoihoa', 'tanthoihoa123', 'Phường Tân Thới Hòa', 2),
+('phuthohoa', 'phuthohoa123', 'Phường Phú Thọ Hòa', 2),
 ('phutrung', 'phutrung123', 'Phường Phú Trung', 2),
 ('tanphu', 'tanphu123', 'Quận Tân Phú', 1);
 
@@ -123,16 +117,21 @@ create table docs(
     `id` varchar(255) not null PRIMARY key,
     `url` varchar(255) not null,
     `id_violation` int(10) not null,
-    FOREIGN key (`id_violation`) REFERENCES `land_violation`(`id`),
-`count_views` int(4) not null
+    FOREIGN key (`id_violation`) REFERENCES `land_violation`(`id`)
+
 );
-
-
 
 CREATE table images_workdaily(
     `id` varchar(255) not null PRIMARY key,
     `url` varchar(255) not null,
     `id_WD` int(10) not null,
     FOREIGN key (`id_WD`) REFERENCES `work_daily`(`id`)
-);
+)
+
+
+
+--update 1/7/2019
+
+alter table docs 
+add column count_views int(4) not null
 
