@@ -2,10 +2,19 @@
 var mysql = require('mysql');
 
 //account Win
+// var connection = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "",
+//     database: "smartcity"
+// });
+
+
+//account Win
 var connection = mysql.createConnection({
     host: "localhost",
-    user: "root",
-    password: "",
+    user: "admin",
+    password: "tanphu123456789",
     database: "smartcity"
 });
 
