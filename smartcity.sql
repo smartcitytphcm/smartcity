@@ -7,13 +7,6 @@ CREATE TABLE `auth` (
   `role` varchar(100) NOT NULL
 );
 
---
--- Đang đổ dữ liệu cho bảng `auth`
---
-
-INSERT INTO `auth` (`id`, `role`) VALUES
-(1, 'admin'),
-(2, 'user');
 
 
 --
@@ -28,17 +21,6 @@ CREATE TABLE `account` (
   FOREIGN KEY (`id_auth`) REFERENCES `auth` (`id`)
 );
 
---
--- Đang đổ dữ liệu cho bảng `account`
---
-
-INSERT INTO `account` (`username`, `password`, `nameAc`, `id_auth`) VALUES
-('hieptan', 'hieptan123', 'Phường Hiệp Tân', 2),
-('hoathanh', 'hoathanh123', 'Phường Hòa Thạnh', 2),
-('phuthanh', 'phuthanh123', 'Phường Phú Thạnh', 2),
-('phuthohoa', 'phuthohoa123', 'Phường Phú Thọ Hòa', 2),
-('phutrung', 'phutrung123', 'Phường Phú Trung', 2),
-('tanphu', 'tanphu123', 'Quận Tân Phú', 1);
 
 -- --------------------------------------------------------
 
@@ -56,8 +38,8 @@ CREATE TABLE `land_owner` (
   `gioitinh` tinyint(1) NOT NULL,
   `quoctich` varchar(100) NOT NULL,
   `diachiTT` varchar(255) NOT NULL,
-  `nghenghiep` varchar(255) NOT NULL,
-  `sdt` varchar(255) NOT NULL
+  `nghenghiep` varchar(255),
+  `sdt` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -104,7 +86,7 @@ CREATE TABLE `work_daily` (
   `hientrangCT` varchar(255) NOT NULL,
   `canboPH` varchar(100) NOT NULL,
   `canboTN` varchar(100) NOT NULL,
-  `xacnhan` tinyint(1) NOT NULL,
+  `xacnhan` tinyint(1),
   `ghichu` varchar(255) DEFAULT NULL,
   `thoigianthuc` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `id_acc` varchar(100) DEFAULT NULL,
@@ -117,21 +99,75 @@ create table docs(
     `id` varchar(255) not null PRIMARY key,
     `url` varchar(255) not null,
     `id_violation` int(10) not null,
-    FOREIGN key (`id_violation`) REFERENCES `land_violation`(`id`)
-
+    FOREIGN key (`id_violation`) REFERENCES `land_violation`(`id`),
+    `count_views` int(4) not null
 );
+
+
 
 CREATE table images_workdaily(
     `id` varchar(255) not null PRIMARY key,
     `url` varchar(255) not null,
-    `id_WD` int(10) not null,
+    `id_WD` int(10),
     FOREIGN key (`id_WD`) REFERENCES `work_daily`(`id`)
-)
+);
 
 
 
---update 1/7/2019
+--update 4/07 DtaBase::
+alter table land_violation
+add gioLBB varchar(100), add soBB int(10), add hientrangCT varchar(255);
 
-alter table docs 
-add column count_views int(4) not null
+--update 5/7:
+ALTER TABLE `images_workdaily`
+    		ADD `id_Vi` int(11),
+    		ADD CONSTRAINT FOREIGN KEY(`id_Vi`) REFERENCES `land_violation`(id); 
 
+
+drop table images_workdaily;
+
+--update 7/7::: 
+CREATE table images(
+    `id` varchar(255) not null PRIMARY key,
+    `url` varchar(255) not null,
+    `id_WD` int(10),
+    `id_Vi` int(11),
+    FOREIGN key (`id_WD`) REFERENCES `work_daily`(`id`),
+    FOREIGN KEY (`id_Vi`) REFERENCES `land_violation`(`id`)
+);
+
+
+
+--update 15/07::
+
+alter table `account`
+add count_acc smallint(5);
+
+
+
+--
+-- Đang đổ dữ liệu cho bảng `auth`
+--
+
+INSERT INTO `auth` (`id`, `role`) VALUES
+(1, 'admin'),
+(2, 'user');
+
+
+--
+-- Đang đổ dữ liệu cho bảng `account`
+--
+
+INSERT INTO `account` (`username`, `password`, `nameAc`, `id_auth`, `count_acc`) VALUES
+('taythanh', 'taythanh123', 'Phường Tây Thạnh', 2, 1),
+('sonky', 'sonky123', 'Phường Sơn Kỳ', 2, 2),
+('tanquy', 'tanquy123', 'Phường Tân Quý', 2, 3),
+('tansonnhi', 'tansonnhi123', 'Phường Tân Sơn Nhì', 2, 4),
+('tanthanh', 'tanthanh123', 'Phường Tân Thành', 2, 5),
+('phuthohoa', 'phuthohoa123', 'Phường Phú Thọ Hòa', 2, 6),
+('hoathanh', 'hoathanh123', 'Phường Hòa Thạnh', 2, 7),
+('phuthanh', 'phuthanh123', 'Phường Phú Thạnh', 2, 8),
+('phutrung', 'phutrung123', 'Phường Phú Trung', 2, 9),
+('hieptan', 'hieptan123', 'Phường Hiệp Tân', 2, 10),
+('tanthoihoa', 'tanthoihoa123', 'Phường Tân Thới Hòa', 2, 11),
+('tanphu', 'tanphu123', 'Quận Tân Phú', 1, null);
