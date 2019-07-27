@@ -662,18 +662,19 @@
 																class="form-control contentVP<%=rows.idVi%>"
 																id="ngayvp<%=rows.idVi%>" name="thoigianVP">
 														</div>
-														<div class="form-group">
-															<label>Nội dung xử phạt</label>
+														
+														<label>Nội dung xử phạt</label>
 															<%results_content.forEach(function(rows_content){
 																	if (rows_content.id_violation === rows.idVi){ %>
+														<div class="form-group">
 															<input type="text" class="form-control"
 																value="<%=rows_content.noidung%>" name="noidungVP"
 																class="contentEdit">
 															<input type="hidden" class="form-control"
 																value="<%=rows_content.id%>" name="idcontent">
-
-															<%}});%>
 														</div>
+														<%}});%>
+														
 														<div class="form-group">
 																<label>Hiện trạng công trình</label>
 																<input type="text"
