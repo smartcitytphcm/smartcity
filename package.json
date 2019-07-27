@@ -6,27 +6,27 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "convertapi": "^1.2.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
-    "docxtemplater": "^3.9.9",
+    "docxtemplater": "^3.14.0",
     "ejs": "~2.5.7",
     "express": "~4.16.0",
-    "express-session": "^1.16.1",
+    "express-session": "^1.16.2",
     "file-system": "^2.2.2",
     "formidable": "^1.2.1",
     "fs": "0.0.1-security",
-    "googleapis": "^40.0.0",
+    "googleapis": "^40.0.1",
     "http-errors": "~1.6.2",
-    "jszip": "^2.6.0",
+    "jszip": "^2.6.1",
     "mkdirp": "^0.5.1",
     "morgan": "~1.9.0",
-    "mysql": "^2.16.0",
+    "mysql": "^2.17.1",
     "node-gyp": "^3.8.0",
     "node-livedocx": "0.0.5",
     "nodemon": "^1.19.1",
-    "npm": "^6.9.0",
+    "npm": "^6.10.2",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-session": "^1.0.2",
@@ -36,6 +36,6 @@
     "soap": "^0.26.0",
     "socket.io": "^2.2.0",
     "unoconv": "^0.1.2",
-    "websocket": "^1.0.28"
+    "websocket": "^1.0.29"
   }
 }
