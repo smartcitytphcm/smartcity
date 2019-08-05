@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
 });
 
 
-//account Win
+//account Server
 // var connection = mysql.createConnection({
 //     host: "localhost",
 //     user: "admin",

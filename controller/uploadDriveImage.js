@@ -132,13 +132,13 @@ module.exports = function (sourcefile, namefile, idWD, idVi) {
         });
         if (idVi == null){
           //insert image for workdaily
-          con.query("INSERT INTO `images`(`id`, `url`, `id_WD`) VALUES ('" + file.data.id + "', 'https://drive.google.com/file/d/" + file.data.id + "/preview', '" + idWD + "')", (err) => {
+          con.query("INSERT INTO `images`(`code`, `url`, `id_WD`) VALUES ('" + file.data.id + "', 'https://drive.google.com/file/d/" + file.data.id + "/preview', '" + idWD + "')", (err) => {
           if (err) throw err
           else
             console.log('thanh cong' + namefile)
         })
         } else {
-          con.query("INSERT INTO `images`(`id`, `url`, `id_Vi`) VALUES ('" + file.data.id + "', 'https://drive.google.com/file/d/" + file.data.id + "/preview', '"+ idVi +"')", (err) => {
+          con.query("INSERT INTO `images`(`code`, `url`, `id_Vi`) VALUES ('" + file.data.id + "', 'https://drive.google.com/file/d/" + file.data.id + "/preview', '"+ idVi +"')", (err) => {
           if (err) throw err
           else
             console.log('thanh cong' + namefile)

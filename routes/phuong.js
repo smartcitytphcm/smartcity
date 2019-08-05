@@ -111,7 +111,7 @@ router.post('/suaPhuong', urlencodedParser, function (req, res, next) {
 router.get('/xuphatphuong', function (req, res, next) {
     if (req.isAuthenticated() && req.session.passport.user.id_auth == '2') {
         var taikhoan = req.session.passport.user.username;
-        con.query("select *, vi.id as idVi, id.id as idIM  from land_violation vi left join images id on vi.id = id.id_Vi, land_owner ow where vi.id_chudat = ow.cmnd and id_acc = '" + taikhoan + "' ORDER BY vi.tinhtrang ASC, vi.thoigianthucVi DESC", function (error, results, field) {
+        con.query("select *, vi.id as idVi, id.id as idIM  from land_violation vi left join images id on vi.id = id.id_Vi, land_owner ow where vi.id_chudat = ow.cmnd and id_acc = '" + taikhoan + "' ORDER BY vi.tinhtrang ASC, vi.thoigianthuc DESC", function (error, results, field) {
             if (error) {
                 throw error;
             } else {
@@ -163,7 +163,8 @@ router.post('/themvipham', urlencodedParser, function (req, res, next) {
         } else {
             console.log(results[0].count)
             if (results[0].count == 0) {
-                con.query("INSERT INTO `land_owner`(`hoten`, `cmnd`, `ngaycap`, `diachicap`, `ngaysinh`, `gioitinh`, `quoctich`, `diachiTT`, `nghenghiep`, `sdt`) VALUES ('" + hoten + "','" + cmnd + "','" + ngaycap + "','" + diachicap + "','" + ngaysinh + "','" + gioitinh + "','Việt Nam','" + diachiTT + "','" + nghenghiep + "','" + sdt + "')", function (error, result1, field) {
+                con.query("INSERT INTO `land_owner`(`hoten`, `cmnd`, `ngaycap`, `diachicap`, `ngaysinh`, `gioitinh`, `quoctich`, `diachiTT`, `nghenghiep`, `sdt`) \
+                VALUES ('" + hoten + "','" + cmnd + "','" + ngaycap + "','" + diachicap + "','" + ngaysinh + "','" + gioitinh + "','Việt Nam','" + diachiTT + "','" + nghenghiep + "','" + sdt + "')", function (error, result1, field) {
                     if (error) {
                         console.log('lỗi owner')
                         console.log(error.message);
@@ -178,18 +179,19 @@ router.post('/themvipham', urlencodedParser, function (req, res, next) {
                     console.log(error.message);
                 } else {
                     console.log('success!!');
-                    var i = 0;
-
+                    var i = 0;             
                     while (noidungVP[i]) {
                         var tam = i + 1;
                         con.query("INSERT INTO `content`(`noidung`, `id_violation`) VALUES ('" + tam + ". " + noidungVP[i] + "', '" + result2.insertId + "')"), function (err) {
                             if (err) throw err;
                         }
                         i += 1;
-
                     }
+                    // // create 1 row in table code_doc without data
+                    // con.query("INSERT INTO `code_doc`(`id_violation`) VALUES ('"+  result2.insertId +"')");
                 }
             });
+
         }
     });
     res.redirect('../phuong/xuphatphuong');

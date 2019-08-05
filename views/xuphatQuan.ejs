@@ -154,7 +154,8 @@
 						<th>Địa chỉ thường trú</th>
 						<th>Phường đảm nhiệm</th>
 						<th>Tình trạng</th>
-						<th></th>
+						<th colspan="2"></th>
+						
 					</tr>
 					<% i =1%>
 					<%results.forEach(function(rows){%>
@@ -165,7 +166,7 @@
 						<td><%=rows.diachiVP%></td>
 						<td><%=rows.diachiTT%></td>
 						<td><%=rows.nameAc%></td>
-						<td><%=(rows.tinhtrang == 1?"Đã xử lý":"Chưa xử lý")%></td>
+						<td><%= (rows.tinhtrang == 0?"Mới":(rows.tinhtrang == 1?"Đợi xử lý QĐXP":(rows.tinhtrang == 2?"Đã xử lý QĐXP":(rows.tinhtrang == 3?"Đợi xử lý QĐCC":"Đã xử lý QĐCC"))))%></td>
 						<td><button type="button" class="btnadd btn btn-danger" data-toggle="modal"
 								data-target="#ModalEdit<%=rows.idVi%>" id_quan="<%=rows.idVi%>">Xem</button>
 							<!-- Modal -->
@@ -303,6 +304,79 @@
 															<input type="hidden" class="form-control"
 																value="<%=rows.diachiTT%>" name="diachiD">
 														</div>
+														<div class="form-group">
+															<div class="row">
+																<div class="col-xs-12 col-md-12">
+																	<h4><center><b>Thông tin văn bản xử phạt</b></center></h4>
+																</div>
+																
+																<div class="col-xs-12 col-md-12">
+																	<h5><b>Tờ trình XPVPHC</b></h5>
+																
+																	<div class="col-xs-1 col-md-1">
+																		<h5><b>Số:</b></h5>
+																	</div>
+																	<div class="col-xs-4 col-md-4" ><h5><%=rows.soTTQDXP%></h5></div>
+																	<div class="col-xs-2 col-md-2">
+																		<h5><b>Ngày:</b></h5>
+																	</div>
+																	<div class="col-xs-5 col-md-5" id="ngayTTQDXP<%=rows.idVi%>"><h5></h5></div>
+																	
+																</div>
+																
+
+																<div class="col-xs-12 col-md-12">
+																	<h5><b>QĐXP</b></h5>
+																	<div class="col-xs-1 col-md-1">
+																		<h5><b>Số:</b></h5>
+																	</div>
+																	<div class="col-xs-4 col-md-4"><h5><%=rows.soQDXP%></h5></div>
+																	<div class="col-xs-2 col-md-2">
+																		<h5><b>Ngày:</b></h5>
+																	</div>
+																	<div class="col-xs-5 col-md-5" id="ngayQDXP<%=rows.idVi%>"><h5></h5></div>
+																	<% if (rows.ngayQDXP!=null && rows.tinhtrang==2){ %>
+																	<div class="col-xs-12 col-md-12"><label style="color: red" id="ngayCC<%=rows.idVi%>">**Quyết định cưỡng chế được ban hành vào ngày: </label></div>
+																	<%};%>
+																	<input type="hidden"  id="ngayCC<%=rows.idVi%>">
+																<div class="col-xs-12 col-md-12" typ id="ngayCC<%=rows.idVi%>"></div>
+																</div>
+																<div class="col-xs-12 col-md-12">
+																	<h5><b>Tờ trình QĐCC</b></h5>
+																	<div class="col-xs-1 col-md-1">
+																		<h5><b>Số:</b></h5>
+																	</div>
+																	<div class="col-xs-4 col-md-4"><h5><%=rows.soTTQDCC%></h5></div>
+																	<div class="col-xs-2 col-md-2">
+																		<h5><b>Ngày:</b></h5>
+																	</div>
+																	<div class="col-xs-5 col-md-5" id="ngayTTQDCC<%=rows.idVi%>"><h5></h5></div>
+																</div>
+
+																<div class="col-xs-12 col-md-12">
+																	<h5><b>QĐCC</b></h5>
+																	<div class="col-xs-1 col-md-1">
+																		<h5><b>Số:</b></h5>
+																	</div>
+																	<div class="col-xs-4 col-md-4"><h5><%=rows.soQDCC%></h5></div>
+																	<div class="col-xs-2 col-md-2">
+																		<h5><b>Ngày:</b></h5>
+																	</div>
+																	<div class="col-xs-5 col-md-5" id="ngayQDCC<%=rows.idVi%>"><h5></h5></div>
+																</div>
+																<input type="hidden" class="form-control" value="<%=rows.soTTQDXP%>" name="soTTQDXPD">
+																<input type="hidden" class="form-control" value="<%=rows.ngayTTQDXP%>" id="ngayTTQDXP<%=rows.idVi%>" name="ngayTTQDXPD">
+
+																<input type="hidden" class="form-control" value="<%=rows.soQDXP%>" name="soQDXPD">
+																<input type="hidden" class="form-control" value="<%=rows.ngayQDXP%>" id="ngayQDXP<%=rows.idVi%>" name="ngayQDXPD">
+
+																<input type="hidden" class="form-control" value="<%=rows.soTTQDCC%>" name="soTTQDCCD">
+																<input type="hidden" class="form-control" value="<%=rows.ngayTTQDCC%>" id="ngayTTQDCC<%=rows.idVi%>" name="ngayTTQDCCD">
+
+																<input type="hidden" class="form-control" value="<%=rows.soQDCC%>" name="soQDCCD">
+																<input type="hidden" class="form-control" value="<%=rows.ngayQDCC%>" id="ngayQDCC<%=rows.idVi%>" name="ngayQDCCD">
+															</div>
+														</div>
 													</div>
 													<div class="group2 col-xs-6 col-md-6">
 														<input type="hidden" class="form-control" value="<%=rows.idVi%>"
@@ -313,6 +387,8 @@
 																	<h5><b>Mã công trình:</b></h5>
 																</div>
 																<div class="col-xs-6 col-md-6"><h5><%=rows.idVi%></h5>
+																	<input type="hidden"
+																	value="<%=rows.nameAc%>" name="nameAcD">
 																</div>
 															</div>
 														</div>
@@ -424,51 +500,18 @@
 																</div>
 															</div>
 														</div>
-														
-														<script>
-															function convert(str) {
-																var date = new Date(str),
-																	mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-																	day = ("0" + date.getDate()).slice(-2);
-																if ([day, mnth, date.getFullYear()].join("-") === 'aN-aN-NaN') {
-																	return "<i>Chưa xác nhận ngày/tháng/năm</i>";
-																}
-																return [day, mnth, date.getFullYear()].join("/");
-															}
-															function convertDayYear(str) {
-																var date = new Date(str),
-																	mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-																	day = ("0" + date.getDate()).slice(-2);
-																if ([mnth, date.getFullYear()].join("-") === 'aN-aN-NaN') {
-																	return "<i>Chưa xác nhận ngày/tháng/năm</i>";
-																}
-																return [mnth, date.getFullYear()].join("/");
-															}
-															var ngayCap = convert('<%=rows.ngaycap%>');
-															var ngaySinh = convert('<%=rows.ngaysinh%>');
-															var ngayVP = convertDayYear('<%=rows.thoigianVP%>');
-															var ngayvp = convert('<%=rows.thoigianVP%>')
-															var ngayLBB = convert('<%=rows.thoigianLBB%>');
-
-															document.getElementById("ngayCap<%=rows.idVi%>").innerHTML= ngayCap;
-															document.getElementById("ngaycap<%=rows.idVi%>").value= ngayCap;
-															document.getElementById("ngaySinh<%=rows.idVi%>").innerHTML= ngaySinh;
-															document.getElementById("ngaysinh<%=rows.idVi%>").value= ngaySinh;
-															document.getElementById("ngayVP<%=rows.idVi%>").innerHTML= ngayVP;
-															document.getElementById("ngayvp<%=rows.idVi%>").value= ngayVP;
-															document.getElementById("ngayLBB<%=rows.idVi%>").innerHTML= ngayLBB;
-															document.getElementById("ngaylbb<%=rows.idVi%>").value= ngayLBB;
-														</script>
 																</div>
 															</div>
 														</div>
 														<div class="modal-footer">
-															<%if (rows.tinhtrang!= 1) {%>
-															<button type="submit" class="btn1 btn btn-primary">Duyệt</button>
-															<%} else {%>
-															<button  type="submit" disabled
-																class="btn1 btn btn-primary">Duyệt</button>
-															<%}%>
+														<% if (rows.soTTQDXP==null && rows.tinhtrang==0){ %>
+															<div class="col-xs-12 col-md-12"><label style="color: red" id="ngayCC<%=rows.idVi%>">**Cần xác nhận số TTQĐXP trước khi xuất văn bản QĐXP</label></div>
+														<%};%>
+														<% if (rows.soTTQDCC==null && rows.tinhtrang==2){ %>
+															<div class="col-xs-12 col-md-12"><label style="color: red" id="ngayCC<%=rows.idVi%>">**Cần xác nhận số TTQĐCC trước khi xuất văn bản QĐCC</label></div>
+														<%};%>
+															<button name="btnQDXP" type="submit" class="btn1 btn btn-primary <%= (rows.tinhtrang==0 && rows.soTTQDXP!=null)?'':'disabled'%>" title="Xuất văn bản công văn UBND phường, TTXPCPHC, QDXP">Xuất QDXP</button>
+															<button name="btnQDCC" type="submit" class="btn1 btn btn-primary <%= (rows.tinhtrang==2 && rows.soTTQDCC!=null)?'':'disabled'%>" title="Xuất văn bản TTQDCC, QDCC">Xuất QDCC</button>		
 										</div>						
 									</form>
 									</div>
@@ -476,7 +519,235 @@
 							</div>
 							<body >														
 						</td>
+						<td><button type="button" class="btnadd btn btn-danger" data-toggle="modal"
+							data-target="#ModalAdd<%=rows.idVi%>" id_quan="<%=rows.idVi%>">Thêm</button>
+							<div class="modal fade" id="ModalAdd<%=rows.idVi%>" role="dialog">
+								<div class="modal-dialog modal-sm modalShowInfo_Quan">
+									<div class="modal-content">
+										<div class="modal-header">
+											<div class="lbl row">
+												<div class="col-xs-12 col-md-12">
+													<h4><b>Cập nhật thông tin</b></h4>
+												</div>
+											</div>
+										</div>
+										<div class="modal-body">
+											<form role="form" action="Add" method="POST">
+														<div class="form-group">
+															<div class="row">
+																<div class="col-xs-12 col-md-12">
+																	<h4><center><b>Tờ trình XPVPHC</b></center></h4>
+																</div>
+																<div class="col-xs-6 col-md-6">
+																	<h5><b>Số tờ trình</b></h5>
+																	<%if (rows.tinhtrang!=0){%>
+																	<input class="form-control" type="text" value="<%= rows.soTTQDXP%>" readonly />
+																	<input class="form-control" type="hidden" name="soTTQDXPD" value="<%=rows.soTTQDXP%>"/>
+																	<%}else{%>
+																	<input class="form-control" type="text" name="soTTQDXPD" value="<%= rows.soTTQDXP==null?'':rows.soTTQDXP%>"/>
+																	<%};%>
+																</div>
+																<div class="col-xs-6 col-md-6">
+																	<h5><b>Ngày</b></h5>
+																	<%if (rows.tinhtrang!=0){%>
+																		<input class="form-control" type="date" id="ngayTTQDXPadd<%=rows.idVi%>" readonly/>
+																		<input class="form-control" type="hidden" id="ngayTTQDXPhidden<%=rows.idVi%>" name="ngayTTQDXPD"/>
+																		<%}else{%>
+																			<input class="form-control" type="date" id="ngayTTQDXPadd<%=rows.idVi%>" name="ngayTTQDXPD"/>
+																			<input class="form-control" type="hidden" id="ngayTTQDXPhidden<%=rows.idVi%>" />																			
+																		<%};%>
+																	
+																</div>
+															</div>
+														</div>
+														<hr />
+														<div class="form-group">
+															<div class="row">
+																<div class="col-xs-12 col-md-12">
+																	<h4><center><b>QĐXP</b></center></h4>
+																</div>
+																<div class="col-xs-6 col-md-6">
+																	<h5><b>Số QĐXP</b></h5>
+																	<%if (rows.tinhtrang!=1){%>
+																		<input class="form-control" type="text" value="<%= rows.soQDXP%>" readonly/>
+																		<input class="form-control" type="hidden" name="soQDXPD" value="<%=rows.soQDXP%>"/>
+																		<%}else{%>
+																		<input class="form-control" type="text" name="soQDXPD" value="<%= rows.soQDXP==null?'':rows.soQDXP%>"/>
+																		<%};%>
+																</div>
+																<div class="col-xs-6 col-md-6">
+																	<h5><b>Ngày</b></h5>
+																	<%if (rows.tinhtrang!=1){%>
+																		<input class="form-control" type="date" id="ngayQDXPadd<%=rows.idVi%>"  readonly/>
+																		<input class="form-control" type="hidden" id="ngayQDXPhidden<%=rows.idVi%>" name="ngayQDXPD"/>
+																		<%}else{%>
+																			<input class="form-control" type="date" id="ngayQDXPadd<%=rows.idVi%>" name="ngayQDXPD"/>
+																			<input class="form-control" type="hidden" id="ngayQDXPhidden<%=rows.idVi%>" />																			
+																		<%};%>
+																</div>
+															</div>
+														</div>
+														<hr />
+														<div class="form-group">
+															<div class="row">
+																<div class="col-xs-12 col-md-12">
+																	<h4><center><b>Tờ trình QĐCC</b></center></h4>
+																</div>
+																<div class="col-xs-6 col-md-6">
+																	<h5><b>Số tờ trình</b></h5>
+																	<%if (rows.tinhtrang!=2){%>
+																		<input class="form-control" type="text" value="<%= rows.soTTQDCC%>" readonly/>
+																		<input class="form-control" type="hidden" name="soTTQDCCD" value="<%=rows.soTTQDCC%>"/>
+																		<%}else{%>
+																	<input class="form-control" type="text" name="soTTQDCCD" value="<%= rows.soTTQDCC==null?'':rows.soTTQDCC%>"/>																		
+																		<%};%>
+																</div>
+																<div class="col-xs-6 col-md-6">
+																	<h5><b>Ngày</b></h5>
+																	<%if (rows.tinhtrang!=2){%>
+																		<input class="form-control" type="date" id="ngayTTQDCCadd<%=rows.idVi%>"  readonly/>
+																		<input class="form-control" type="hidden" id="ngayTTQDCChidden<%=rows.idVi%>" name="ngayTTQDCCD"/>
+																		<%}else{%>
+																			<input class="form-control" type="date" id="ngayTTQDCCadd<%=rows.idVi%>" name="ngayTTQDCCD"/>
+																			<input class="form-control" type="hidden" id="ngayTTQDCChidden<%=rows.idVi%>" />
+																		<%};%>
+																</div>
+															</div>
+														</div>
+														<hr />
+														<div class="form-group">
+															<div class="row">
+																<div class="col-xs-12 col-md-12">
+																	<h4><center><b>QĐCC</b></center></h4>
+																</div>
+																<div class="col-xs-6 col-md-6">
+																	<h5><b>Số tờ trình</b></h5>
+																	<%if (rows.tinhtrang!=3){%>
+																		<input class="form-control" type="text" value="<%= rows.soQDCC%>" readonly/>
+																		<input class="form-control" type="hidden" name="soQDCCD" value="<%=rows.soQDCC%>"/>
+																		<%}else{%>
+																	<input class="form-control" type="text" name="soQDCCD" value="<%= rows.soQDCC==null?'':rows.soTTQDCC%>"/>																		
+																		<%};%>
+																</div>
+																<div class="col-xs-6 col-md-6">
+																	<h5><b>Ngày</b></h5>
+																	<%if (rows.tinhtrang!=3){%>
+																		<input class="form-control" type="date" id="ngayQDCCadd<%=rows.idVi%>"  readonly/>
+																		<input class="form-control" type="hidden" id="ngayQDCChidden<%=rows.idVi%>" name="ngayQDCCD"/>
+																		<%}else{%>
+																			<input class="form-control" type="date" id="ngayQDCCadd<%=rows.idVi%>" name="ngayQDCCD"/>
+																			<input class="form-control" type="hidden" id="ngayQDCChidden<%=rows.idVi%>" />
+																		<%};%>
+																</div>
+															</div>
+														</div>	
+											</div>
+											<input class="form-control" type="hidden" name="idViD" value="<%=rows.idVi%>" />
+											<div class="modal-footer">
+												<button type="submit" class="btn1 btn btn-primary <%= rows.tinhtrang==4?'disabled':''%>">Lưu</button>
+												<button id="closemodal" type="reset" class="btn1 btn btn-primary">Hủy</button>
+											</div>
+											<script>
+												$('#closemodal').click(function() {
+    												$('#ModalAdd<%=rows.idVi%>').modal('hide');
+												});								
+											</script>					
+									</form>
+									</div>
+								</div>
+							</div>
+						</td>
 					</tr>
+					<script>
+						
+						function convert(str) {
+							var date = new Date(str),
+								mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+								day = ("0" + date.getDate()).slice(-2);
+							if ([day, mnth, date.getFullYear()].join("-") === 'aN-aN-NaN') {
+								return "<i>Chưa xác nhận ngày/tháng/năm</i>";
+							}
+							return [day, mnth, date.getFullYear()].join("/");
+						}
+
+						function convertDayYear(str) {
+							var date = new Date(str),
+								mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+								day = ("0" + date.getDate()).slice(-2);
+							if ([mnth, date.getFullYear()].join("-") === 'aN-aN-NaN') {
+								return "<i>Chưa xác nhận ngày/tháng/năm</i>";
+							}
+							return [mnth, date.getFullYear()].join("/");
+						}
+
+						function addDays(dateObj, numDays) {
+							dateObj.setDate(dateObj.getDate() + numDays);
+							return dateObj;
+						}
+						function convertEdit(str) {
+							var date = new Date(str),
+								mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+								day = ("0" + date.getDate()).slice(-2);
+							if ([date.getFullYear(), mnth, day].join("-") === 'aN-aN-NaN') {
+								return "<i>Chưa xác nhận ngày/tháng/năm</i>";
+							}
+							return [date.getFullYear(), mnth, day].join("-");
+						}
+						var ngayTTXPEdit = convertEdit("<%=rows.ngayTTQDXP%>");
+						var ngayQDXPEdit = convertEdit("<%=rows.ngayQDXP%>");
+						var ngayTTCCEdit = convertEdit("<%=rows.ngayTTQDCC%>");
+						var ngayQDCCEdit = convertEdit("<%=rows.ngayQDCC%>");
+
+						document.getElementById('ngayTTQDXPadd<%=rows.idVi%>').value = ngayTTXPEdit;
+						document.getElementById('ngayQDXPadd<%=rows.idVi%>').value = ngayQDXPEdit;
+						document.getElementById('ngayTTQDCCadd<%=rows.idVi%>').value = ngayTTCCEdit;
+						document.getElementById('ngayQDCCadd<%=rows.idVi%>').value = ngayQDCCEdit;
+						// for data hidden
+						document.getElementById('ngayTTQDXPhidden<%=rows.idVi%>').value = ngayTTXPEdit;
+						document.getElementById('ngayQDXPhidden<%=rows.idVi%>').value = ngayQDXPEdit;
+						document.getElementById('ngayTTQDCChidden<%=rows.idVi%>').value = ngayTTCCEdit;
+						document.getElementById('ngayQDCChidden<%=rows.idVi%>').value = ngayQDCCEdit;
+
+						var ngayCap = convert('<%=rows.ngaycap%>');
+						var ngaySinh = convert('<%=rows.ngaysinh%>');
+						var ngayVP = convertDayYear('<%=rows.thoigianVP%>');
+						var ngayvp = convert('<%=rows.thoigianVP%>');
+						var ngayLBB = convert('<%=rows.thoigianLBB%>');
+
+						document.getElementById("ngayCap<%=rows.idVi%>").innerHTML= ngayCap;
+						document.getElementById("ngaycap<%=rows.idVi%>").value= ngayCap;
+						document.getElementById("ngaySinh<%=rows.idVi%>").innerHTML= ngaySinh;
+						document.getElementById("ngaysinh<%=rows.idVi%>").value= ngaySinh;
+						document.getElementById("ngayVP<%=rows.idVi%>").innerHTML= ngayVP;
+						document.getElementById("ngayvp<%=rows.idVi%>").value= ngayVP;
+						document.getElementById("ngayLBB<%=rows.idVi%>").innerHTML= ngayLBB;
+						document.getElementById("ngaylbb<%=rows.idVi%>").value= ngayLBB;
+						
+						
+						var ngayTTXP = convert("<%=rows.ngayTTQDXP%>");
+						var ngayQDXP = convert("<%=rows.ngayQDXP%>");
+						var ngayTTCC = convert("<%=rows.ngayTTQDCC%>");
+						var ngayQDCC = convert("<%=rows.ngayQDCC%>");
+
+						var date = new Date("<%=rows.ngayQDXP%>");
+
+						var ngayCC = addDays(date , 10);
+
+						document.getElementById('ngayTTQDXP<%=rows.idVi%>').innerHTML = "<h5>"+ ngayTTXP +"</h5>";
+						document.getElementById('ngayQDXP<%=rows.idVi%>').innerHTML = "<h5>"+ ngayQDXP +"</h5>";
+						document.getElementById('ngayCC<%=rows.idVi%>').innerHTML = "<center>**Quyết định cưỡng chế được ban hành vào ngày: " + ngayCC.getDate() + "/" + (ngayCC.getMonth() + 1) + "/" + ngayCC.getFullYear() + "</center>";
+						document.getElementById('ngayTTQDCC<%=rows.idVi%>').innerHTML = "<h5>"+ ngayTTCC +"</h5>";
+						document.getElementById('ngayQDCC<%=rows.idVi%>').innerHTML = "<h5>"+ ngayQDCC +"</h5>";
+						
+					
+						
+
+						
+
+												
+
+
+					</script>
 					<%});%>
 				</table>
 			</div>

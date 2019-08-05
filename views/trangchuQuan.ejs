@@ -247,10 +247,14 @@
                                 <tr>
 									<td><%=i++%></td>
 									<td>
-										<h5 id="title<%=rows.idWD%>" class="title" style="color:blue"><b><%=rows.nameAc%> -  Ngày tuần tra: <%=rows.ngayTT%></b></h5>
+										<h5 id="title<%=rows.idWD%>" class="title" style="color:blue"></h5>
 										<p  class="content<%=rows.idWD%>" style="display: none">
 											<span class="glyphicon glyphicon-asterisk"></span> BÁO CÁO CÔNG VIỆC:<br/>
-											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Nội dung: Công trình tại <%=rows.diachiCT%> <%=rows.hientrangCT%> được cán bộ <%=rows.canboPH%> phát hiện và được lập biên bản bởi cán bộ <%=rows.canboTN%><br/>
+											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Thời gian: <%=rows.ngayTT%><br/>
+											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Địa chỉ công trình: <%=rows.diachiCT%> <br/>
+											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Hiện trạng công trình: <%=rows.hientrangCT%> <br/>
+											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Cán bộ phát hiện: <%=rows.canboPH%> <br/>
+											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Người tiếp nhận thông tin: <%=rows.canboTN%> <br/>											
 											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Xác nhận từ phường:<%=(rows.xacnhan == 1 ?"Xác nhận":"Chưa xác nhận")%> <br/>
 											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Ghi chú: <%=rows.ghichu%> <br/>
 											<% if (rows.url == null) {%>

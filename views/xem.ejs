@@ -115,22 +115,22 @@
         <div class="row">
             <div class="col-xs-6 col-md-push-2 col-md-6">
                 <div class="form-group">
-                    <label>Họ và tên:</label>
-                    <label name="hoten"><%=results2[0].hoten%></label>
+                    <label><u>Họ và tên:</u></label>
+                    <label name="hoten"><i><%=results2[0].hoten%></i></label>
                 </div>
                 <div class="form-group">
-                    <label>CMND:</label>
-                    <label name="cmnd"><%=results2[0].cmnd%></label>
+                    <label><u>CMND:</u></label>
+                    <label name="cmnd"><i><%=results2[0].cmnd%></i></label>
                 </div>
             </div>
             <div class="col-xs-6 col-md-4">
                 <div class="form-group">
-                    <label>Mã Đất:</label>
-                    <label name="idVi"><%=results2[0].id%></label>
+                    <label><u>Số biên bản:</u></label>
+                    <label name="soBB"><i><%=results2[0].soBB%></i></label>
                 </div>
                 <div class="form-group">
-                    <label>Địa chỉ đất vi phạm:</label>
-                    <label name="diachiVP"><%=results2[0].diachiVP%></label>
+                    <label><u>Địa chỉ đất vi phạm:</u></label>
+                    <label name="diachiVP">&nbsp;&nbsp;<i><%=results2[0].diachiVP%></i></label>
                 </div>
             </div>
         </div>
@@ -142,8 +142,7 @@
             <li><a href="<%=results[2].url%>">Phiếu kiểm soát</a></li>
             <li><a href="<%=results[3].url%>">TTXPVPHC</a></li>
             <li><a href="<%=results[4].url%>">QDXP</a></li>
-            <li><a href="<%=results[5].url%>">TTQDCC</a></li>
-            <li><a href="<%=results[6].url%>">QDCC</a></li>
+            
         </ul>
         <div class="tabContainer">
             <iframe src="<%=results[0].url%>"></iframe>

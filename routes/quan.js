@@ -15,19 +15,24 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 // localhost:3000/quan
 router.get('/', (req, res) => {
-    
+
     if (req.isAuthenticated() && req.session.passport.user.id_auth == '1') {
         var taikhoan = req.session.passport.user.username;
-        con.query('SELECT *, wd.id as idWD, im.id as idIM FROM `work_daily` wd left join `images` im on wd.id = im.id_WD, `account` acc WHERE wd.id_acc = acc.username order by ngayTT DESC, thoigianthuc DESC', (err, results) => {
-            if (err) throw err;
-            else {
-                con.query('SELECT * FROM `account` where id_auth = 2 order by `count_acc` asc', (err, results_acc)=>{
-                    console.log(results);
-                    res.render('trangchuQuan', { results, results_acc, taikhoan});
-                    
-                })
-            }   
-        })
+        con.query('SELECT *, wd.id as idWD, im.id as idIM \
+                    FROM `work_daily` wd left join `images` im on wd.id = im.id_WD, `account` acc \
+                    WHERE wd.id_acc = acc.username \
+                    ORDER BY ngayTT DESC, thoigianthuc DESC', (err, results) => {
+                if (err) throw err;
+                else {
+                    con.query('SELECT * FROM `account` \
+                            WHERE id_auth = 2 \
+                            ORDER BY `count_acc` asc', (err, results_acc) => {
+                            console.log(results);
+                            res.render('trangchuQuan', { results, results_acc, taikhoan });
+
+                        })
+                }
+            })
     }
     else {
         res.redirect('../')
@@ -38,22 +43,24 @@ router.get('/', (req, res) => {
 // localhost:3000/quan/xuphatquan
 /* dislay info land owner */
 router.get('/xuphatquan', function (req, res, next) {
-    
+
     if (req.isAuthenticated() && req.session.passport.user.id_auth == '1') {
         var taikhoan = req.session.passport.user.username;
-        con.query('select *, vi.id as idVi, nameAc from land_violation vi left join images im on vi.id = im.id_Vi, land_owner ow, account acc where vi.id_chudat = ow.cmnd and vi.id_acc = acc.username ORDER BY vi.tinhtrang ASC, vi.thoigianthucVi DESC', function (error, results, field) {
-            if (error) {
-                throw error;
-            } else {
-                console.log(results)
-                con.query("select * from content", (err, results_content) => {
-                    if (err)
-                        { throw err; }
-                        console.log(results_content)
-                    res.render('xuphatQuan', { results, results_content, taikhoan });
-                })
-            }
-        });
+        con.query('SELECT *, vi.id as idVi, nameAc \
+                    FROM land_violation vi LEFT JOIN images im ON vi.id = im.id_Vi LEFT JOIN code_doc cd ON cd.id_violation = vi.id ,land_owner ow, account acc \
+                    WHERE vi.id_chudat = ow.cmnd AND vi.id_acc = acc.username \
+                    ORDER BY vi.tinhtrang ASC, vi.thoigianthuc DESC', function (error, results, field) {
+                if (error) {
+                    throw error;
+                } else {
+                    // console.log(results)
+                    con.query("select * from content", (err, results_content) => {
+                        if (err) { throw err; }
+                        // console.log(results_content)
+                        res.render('xuphatQuan', { results, results_content, taikhoan });
+                    })
+                }
+            });
     }
     else {
         res.redirect('/')
@@ -87,9 +94,12 @@ function LoadFile(sourceFile, name_sc, name, data) {
     });
 }
 
+
+
 //Action apply docs
 router.post('/duyet', function (req, res, next) {
-    var idViD = req.body.idViD;
+    var bdparams = req.body;
+    var idViD = bdparams.idViD;
     var ngoixung;
     var ngoixungH;
     if (req.body.gioitinhD == 'Nam') {
@@ -102,56 +112,61 @@ router.post('/duyet', function (req, res, next) {
         ngoixungH = 'Bà';
     }
 
-
-
-
     //path save docs 
     var file = './public/vanban/xem/';
-    var congvanUBNDphuong = 'congvanUBNDphuong_' + req.body.cmndD + '_' + idViD;
-    var phanloaihoso = 'phanloaihoso_' + req.body.cmndD + '_' + idViD;
-    var phieukiemsoat = 'phieukiemsoat_' + req.body.cmndD + '_' + idViD;
-    var QDXP = 'QDXP_' + req.body.cmndD + '_' + idViD;
-    var TTXPVPHC = 'TTXPVPHC_' + req.body.cmndD + '_' + idViD;
-    var TTQDCC = 'TTQDCC_' + req.body.cmndD + '_' + idViD;
-    var QDCC = 'QDCC_' + req.body.cmndD + '_' + idViD;
+    var congvanUBNDphuong = 'congvanUBNDphuong_' + bdparams.cmndD + '_' + idViD;
+    var phanloaihoso = 'phanloaihoso_' + bdparams.cmndD + '_' + idViD;
+    var phieukiemsoat = 'phieukiemsoat_' + bdparams.cmndD + '_' + idViD;
+    var QDXP = 'QDXP_' + bdparams.cmndD + '_' + idViD;
+    var TTXPVPHC = 'TTXPVPHC_' + bdparams.cmndD + '_' + idViD;
+    var TTQDCC = 'TTQDCC_' + bdparams.cmndD + '_' + idViD;
+    var QDCC = 'QDCC_' + bdparams.cmndD + '_' + idViD;
+
+    //json data is got data from broswer 
+    var data = {
+        //Info Owner
+        hoten: bdparams.hotenD,
+        cmnd: bdparams.cmndD,
+        ngaycap: bdparams.ngaycapD,
+        diachicap: bdparams.diachicapD,
+        ngaysinh: bdparams.ngaysinhD,
+        gioitinh: bdparams.gioitinhD,
+        diachiTT: bdparams.diachiD,
+        quoctich: bdparams.quoctichD,
+
+        //info land Violation::
+        diachiVP: bdparams.diachiViD,
+        thoigianVP: bdparams.thoigianVPD,
+        thoigianLBB: bdparams.thoigianLBBD,
+        noidung: [
+            { noidung1: bdparams.noidungVPD[0] },
+            { noidung1: bdparams.noidungVPD[1] },
+            { noidung1: bdparams.noidungVPD[2] },
+            { noidung1: bdparams.noidungVPD[3] },
+        ],
+
+        tienphat: bdparams.tienphatD,
+        ngoixung: ngoixung,
+        ngoixungH: ngoixungH,
+        phuong: bdparams.nameAcD,
+        soBB: bdparams.soBBD,
+        hientrangCT: bdparams.hientrangCTD,
+        gioLBB: bdparams.gioLBBD,
+        soTTQDXP: bdparams.soTTQDXPD,
+        ngayTTQDXP: bdparams.ngayTTQDXPD,
+        soQDXP: bdparams.soQDXPD,
+        ngayQDXP: bdparams.ngayQDXPD,
+        // soTTQDCC: bdparams.soTTQDCCD,
+        // ngayTTQDCC: bdparams.ngayTTQDCCD,
+        // soQDCC: bdparams.soQDCCD,
+        // ngayQDCC: bdparams.ngayQDCCD,
+    };
 
 
 
-    // Get info Phường 
-    con.query("select nameAC from account, land_violation where username = id_acc and id = ' " + idViD + "'", (err, result) => {
-        if (err) throw err;
-        var phuong = result[0].nameAC;
-        //json data is got data from broswer 
-        var data = {
-            //Info Owner
-            hoten: req.body.hotenD,
-            cmnd: req.body.cmndD,
-            ngaycap: req.body.ngaycapD,
-            diachicap: req.body.diachicapD,
-            ngaysinh: req.body.ngaysinhD,
-            gioitinh: req.body.gioitinhD,
-            diachiTT: req.body.diachiD,
-            quoctich: req.body.quoctichD,
-            //info land Violation::
-            diachiVP: req.body.diachiViD,
-            thoigianVP: req.body.thoigianVPD,
-            thoigianLBB: req.body.thoigianLBBD,
-            noidung: [
-                {noidung1: req.body.noidungVPD[0]},
-                {noidung1: req.body.noidungVPD[1]},
-                {noidung1: req.body.noidungVPD[2]}, 
-                {noidung1: req.body.noidungVPD[3]}, 
-            ],
-            
-            tienphat: req.body.tienphatD,
-            ngoixung: ngoixung,
-            ngoixungH: ngoixungH,
-            phuong: phuong,
-            soBB: req.body.soBBD,
-            hientrangCT: req.body.hientrangCTD,
-            gioLBB: req.body.gioLBBD
-        };
 
+    // when btn "Xuất QDCC" action
+    if (bdparams.btnQDXP != undefined) {
 
         // create file congvanUBNDphuong.docx ứng với Mã Vi phạm
         LoadFile('./public/vanban/duyet/congvanUBNDphuong.docx', file, congvanUBNDphuong, data);
@@ -163,39 +178,110 @@ router.post('/duyet', function (req, res, next) {
         LoadFile('./public/vanban/duyet/QDXP.docx', file, QDXP, data);
         // create file TTXPVPHC.docx ứng với Mã Vi phạm
         LoadFile('./public/vanban/duyet/TTXPVPHC.docx', file, TTXPVPHC, data);
+
+
+
+        //Upload docs into Drive (acc: smartcitytphcm@gmail.com; pass:tanphu123456789)
+        setTimeout(function () {
+            upLoadDrive(file + congvanUBNDphuong + '.docx', congvanUBNDphuong + '.docx', idViD, 0)
+            upLoadDrive(file + phanloaihoso + '.docx', phanloaihoso + '.docx', idViD, 1)
+            upLoadDrive(file + phieukiemsoat + '.docx', phieukiemsoat + '.docx', idViD, 2)
+            upLoadDrive(file + TTXPVPHC + '.docx', TTXPVPHC + '.docx', idViD, 3)
+            upLoadDrive(file + QDXP + '.docx', QDXP + '.docx', idViD, 4)
+        }, 400);
+
+        // Update status violation 0 => 1 (mới => đợi duyệt QDXP)
+        if (bdparams.soTTQDXP != '')
+            con.query("UPDATE `land_violation` SET `tinhtrang`= 1 WHERE id = " + idViD, (err) => {
+                if (err) {
+                    console.log('fail update status = 1');
+                    throw err;
+                }
+            });
+    }
+
+    console.log(bdparams);
+    // when btn "Xuất QDXP" action
+    if (bdparams.btnQDCC != undefined) {
         // create file TTQDCC.docx ứng với Mã Vi phạm
         LoadFile('./public/vanban/duyet/TTQDCC.docx', file, TTQDCC, data);
         // create file QDCC.docx ứng với Mã Vi phạm
         LoadFile('./public/vanban/duyet/QDCC.docx', file, QDCC, data);
-    })
-    
 
-    // Update status violation 0 => 1
-    con.query('UPDATE `land_violation` SET `tinhtrang`= 1 WHERE id =' + idViD, function (error, results, field) {
-        if (error) {
 
-            throw error;
+        //Upload docs into Drive (acc: smartcitytphcm@gmail.com; pass:tanphu123456789)
+        setTimeout(function () {
+            upLoadDrive(file + TTQDCC + '.docx', TTQDCC + '.docx', idViD, 5)
+            upLoadDrive(file + QDCC + '.docx', QDCC + '.docx', idViD, 6)
+        }, 200);
 
-        } else {
+        // Update status violation 2 => 3 (đã xử lý QĐXP => Đợi duyệt QDCC)
+        if (bdparams.soTTQDCC != '')
+            con.query("UPDATE `land_violation` SET `tinhtrang`= 3 WHERE id = " + idViD, (err) => {
+                if (err) {
+                    console.log('fail update status = 3');
+                    throw err;
+                }
 
-            console.log('success!!!');
+            });
+    };
+
+    res.redirect('../quan/xuphatQuan');
+});
+
+router.post('/Add', function (req, res, next) {
+    var bdparams = req.body;
+    var idVi = bdparams.idViD;
+    var soTTQDXP = bdparams.soTTQDXPD;
+    var ngayTTQDXP = bdparams.ngayTTQDXPD;
+    var soQDXP = bdparams.soQDXPD;
+    var ngayQDXP = bdparams.ngayQDXPD;
+    var soTTQDCC = bdparams.soTTQDCCD;
+    var ngayTTQDCC = bdparams.ngayTTQDCCD;
+    var soQDCC = bdparams.soQDCCD;
+    var ngayQDCC = bdparams.ngayQDCCD;
+
+
+    function returnNull(bodypr) {
+        if (bodypr == '')
+            bodypr = null;
+        return bodypr;
+    }
+    // return null if value ''
+    soTTQDXP = returnNull(soTTQDXP);
+    soQDXP = returnNull(soQDXP);
+    soTTQDCC = returnNull(soTTQDCC);
+    soQDCC = returnNull(soQDCC);
+
+    console.log('data:::' + ngayQDCC)
+    con.query('DELETE FROM `code_doc` WHERE id_violation = ' + idVi, (err) => {
+        if (err) throw err;
+        else {
+            con.query("INSERT INTO `code_doc`(`soTTQDXP`, `ngayTTQDXP`, `soQDXP`, `ngayQDXP`, `soTTQDCC`, `ngayTTQDCC`, `soQDCC`, `ngayQDCC`, `id_violation`) \
+            VALUES ("+ soTTQDXP + ", '" + ngayTTQDXP + "', " + soQDXP + ", '" + ngayQDXP + "'," + soTTQDCC + ", '" + ngayTTQDCC + "'," + soQDCC + ", '" + ngayQDCC + "'," + idVi + ")", (err) => {
+                    if (err) throw err;
+                    else {
+
+                        if (soQDXP != null)
+                            con.query("UPDATE `land_violation` SET `tinhtrang`= 2 WHERE id = " + idVi, (err) => {
+                                if (err) {
+                                    console.log('fail update status = 2');
+                                    throw err;
+                                }
+                            });
+                        if (soQDCC != null)
+                            con.query("UPDATE `land_violation` SET `tinhtrang`= 4 WHERE id = " + idVi, (err) => {
+                                if (err) {
+                                    console.log('fail update status = 4');
+                                    throw err;
+                                }
+                            });
+                    }
+                });
+            res.redirect('/quan/xuphatquan');
         }
+        console.log('Xóa thành công!!');
     });
-
-
-    //Upload docs into Drive (acc: smartcitytphcm@gmail.com; pass:tanphu123456789)
-    setTimeout(function () {
-        upLoadDrive(file + congvanUBNDphuong + '.docx', congvanUBNDphuong + '.docx', idViD, 0)
-        upLoadDrive(file + phanloaihoso + '.docx', phanloaihoso + '.docx', idViD, 1)
-        upLoadDrive(file + phieukiemsoat + '.docx', phieukiemsoat + '.docx', idViD, 2)
-        upLoadDrive(file + TTXPVPHC + '.docx', TTXPVPHC + '.docx', idViD, 3)
-        upLoadDrive(file + QDXP + '.docx', QDXP + '.docx', idViD, 4)
-        upLoadDrive(file + TTQDCC + '.docx', TTQDCC + '.docx', idViD, 5)
-        upLoadDrive(file + QDCC + '.docx', QDCC + '.docx', idViD, 6)
-    }, 600)
-    res.redirect('../quan/xuphatQuan')
-})
-
-
+});
 
 module.exports = router;
