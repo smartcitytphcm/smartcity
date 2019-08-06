@@ -486,7 +486,7 @@
 							<td><%=rows.diachiVP%></td>
 							<td><%=rows.sdt%></td>
 							<td><%=rows.diachiTT%></td>
-							<td><%=(rows.tinhtrang == 1?"Đã xử lý":"Chưa xử lý")%></td>
+							<td><%= (rows.tinhtrang == 0?"Mới":(rows.tinhtrang == 1?"Đợi xử lý QĐXP":(rows.tinhtrang == 2?"Đã xử lý QĐXP":(rows.tinhtrang == 3?"Đợi xử lý QĐCC":"Đã xử lý QĐCC"))))%></td>
 							<td>
 								<div class="container-fluid">
 										<div class="row">
@@ -664,6 +664,7 @@
 														</div>
 														
 														<label>Nội dung xử phạt</label>
+													</br><label style="color: red"><i>**Hiện hệ thống chỉ nhận được tối đa 4 nội dung</i></label>
 															<%results_content.forEach(function(rows_content){
 																	if (rows_content.id_violation === rows.idVi){ %>
 														<div class="form-group">
