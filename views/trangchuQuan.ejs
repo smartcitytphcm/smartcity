@@ -186,7 +186,7 @@
 																	<label>Cán bộ phát hiện</label>
 															</div>
 															<div class="col-xs-1 col-md-2 ">
-																	<label>Người tiếp nhận thông tin</label>
+																	<label>Cán tiếp nhận</label>
 															</div>
 															<div class="col-xs-1 col-md-2">
 																<label>Hình ảnh</label>
@@ -245,18 +245,17 @@
 									<% i=1%>
 									<%results.forEach(function(rows){%>
                                 <tr>
-									<td><%=i++%></td>
+									
 									<td>
-										<h5 id="title<%=rows.idWD%>" class="title" style="color:blue"></h5>
+										<h5 id="title<%=rows.idWD%>" class="title" style="color:blue"><b><%=rows.nameAc%> -  Ngày tuần tra: <%=rows.ngayTT%></b></h5>
 										<p  class="content<%=rows.idWD%>" style="display: none">
-											<span class="glyphicon glyphicon-asterisk"></span> BÁO CÁO CÔNG VIỆC:<br/>
-											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Thời gian: <%=rows.ngayTT%><br/>
-											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Địa chỉ công trình: <%=rows.diachiCT%> <br/>
-											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Hiện trạng công trình: <%=rows.hientrangCT%> <br/>
-											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Cán bộ phát hiện: <%=rows.canboPH%> <br/>
-											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Người tiếp nhận thông tin: <%=rows.canboTN%> <br/>											
-											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Xác nhận từ phường:<%=(rows.xacnhan == 1 ?"Xác nhận":"Chưa xác nhận")%> <br/>
-											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> Ghi chú: <%=rows.ghichu%> <br/>
+											<span class="glyphicon glyphicon-asterisk"></span> <label><u>BÁO CÁO CÔNG VIỆC</u></label><br/>
+											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> <label>Địa chỉ công trình:</label> <%=rows.diachiCT%> <br/>
+											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> <label>Hiện trạng công trình:</label> <%=rows.hientrangCT%> <br/>
+											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> <label>Cán bộ phát hiện:</label> <%=rows.canboPH%><br/>
+											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> <label>Cán bộ tiếp nhận thông tin:</label> <%=rows.canboTN%><br/>
+											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> <label>Xác nhận từ phường:</label> <%=(rows.xacnhan == 1 ?"Xác nhận":"Chưa xác nhận")%> <br/>
+											&emsp;<span class="glyphicon glyphicon-chevron-right"></span> <label>Ghi chú:</label> <%=rows.ghichu%> <br/>
 											<% if (rows.url == null) {%>
 												<label style="color: red">**Hiện chưa có hình ảnh</label>
 												<%} else {%>
