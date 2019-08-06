@@ -162,9 +162,6 @@ router.post('/duyet', function (req, res, next) {
         // ngayQDCC: bdparams.ngayQDCCD,
     };
 
-
-
-
     // when btn "Xuất QDCC" action
     if (bdparams.btnQDXP != undefined) {
 

@@ -365,16 +365,14 @@
 																	<div class="col-xs-5 col-md-5" id="ngayQDCC<%=rows.idVi%>"><h5></h5></div>
 																</div>
 																<input type="hidden" class="form-control" value="<%=rows.soTTQDXP%>" name="soTTQDXPD">
-																<input type="hidden" class="form-control" value="<%=rows.ngayTTQDXP%>" id="ngayTTQDXP<%=rows.idVi%>" name="ngayTTQDXPD">
+																<input type="hidden" class="form-control" value="<%=rows.ngayTTQDXP%>" id="ngayTTQDXPduyet<%=rows.idVi%>" name="ngayTTQDXPD">
 
 																<input type="hidden" class="form-control" value="<%=rows.soQDXP%>" name="soQDXPD">
-																<input type="hidden" class="form-control" value="<%=rows.ngayQDXP%>" id="ngayQDXP<%=rows.idVi%>" name="ngayQDXPD">
+																<input type="hidden" class="form-control" value="<%=rows.ngayQDXP%>" id="ngayQDXPduyet<%=rows.idVi%>" name="ngayQDXPD">
 
 																<input type="hidden" class="form-control" value="<%=rows.soTTQDCC%>" name="soTTQDCCD">
-																<input type="hidden" class="form-control" value="<%=rows.ngayTTQDCC%>" id="ngayTTQDCC<%=rows.idVi%>" name="ngayTTQDCCD">
 
 																<input type="hidden" class="form-control" value="<%=rows.soQDCC%>" name="soQDCCD">
-																<input type="hidden" class="form-control" value="<%=rows.ngayQDCC%>" id="ngayQDCC<%=rows.idVi%>" name="ngayQDCCD">
 															</div>
 														</div>
 													</div>
@@ -510,9 +508,11 @@
 														<% if (rows.soTTQDCC==null && rows.tinhtrang==2){ %>
 															<div class="col-xs-12 col-md-12"><label style="color: red" id="ngayCC<%=rows.idVi%>">**Cần xác nhận số TTQĐCC trước khi xuất văn bản QĐCC</label></div>
 														<%};%>
-															<button name="btnQDXP" type="submit" class="btn1 btn btn-primary <%= (rows.tinhtrang==0 && rows.soTTQDXP!=null)?'':'disabled'%>" title="Xuất văn bản công văn UBND phường, TTXPCPHC, QDXP">Xuất QDXP</button>
-															<button name="btnQDCC" type="submit" class="btn1 btn btn-primary <%= (rows.tinhtrang==2 && rows.soTTQDCC!=null)?'':'disabled'%>" title="Xuất văn bản TTQDCC, QDCC">Xuất QDCC</button>		
-										</div>						
+															<button name="btnQDXP" type="submit" class="btn1 btn btn-primary <%= (rows.tinhtrang==0 && rows.soTTQDXP!=null)?'':'disabled'%>" title="Xuất văn bản công văn UBND phường, TTXPCPHC, QDXP" onclick="window.open('/vanban/xem/<%=rows.cmnd%>/<%=rows.idVi%>', '_blank')">Xuất QDXP</button>
+															<button name="btnQDCC" type="submit" class="btn1 btn btn-primary <%= (rows.tinhtrang==2 && rows.soTTQDCC!=null)?'':'disabled'%>" title="Xuất văn bản TTQDCC, QDCC" onclick="window.open('/vanban/xem/<%=rows.cmnd%>/<%=rows.idVi%>', '_blank')">Xuất QDCC</button>		
+
+										</div>			
+				
 									</form>
 									</div>
 								</div>
@@ -738,15 +738,11 @@
 						document.getElementById('ngayCC<%=rows.idVi%>').innerHTML = "<center>**Quyết định cưỡng chế được ban hành vào ngày: " + ngayCC.getDate() + "/" + (ngayCC.getMonth() + 1) + "/" + ngayCC.getFullYear() + "</center>";
 						document.getElementById('ngayTTQDCC<%=rows.idVi%>').innerHTML = "<h5>"+ ngayTTCC +"</h5>";
 						document.getElementById('ngayQDCC<%=rows.idVi%>').innerHTML = "<h5>"+ ngayQDCC +"</h5>";
-						
+						document.getElementById("ngayTTQDXPduyet<%=rows.idVi%>").value= ngayTTXP;
+						document.getElementById("ngayQDXPduyet<%=rows.idVi%>").value= ngayQDXP;
 					
 						
-
 						
-
-												
-
-
 					</script>
 					<%});%>
 				</table>

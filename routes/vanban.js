@@ -53,14 +53,7 @@ router.get('/xem/:cmnd/:idVi', (req, res) => {
                             WHERE id = " + idVi + " \
                             AND cmnd = id_chudat", (err2, results2) => {
                     if (err2) { throw err2 }
-                    console.log(results[0].url);
-                    console.log(results[1].url);
-                    console.log(results[2].url);
-                    console.log(results[3].url);
-                    console.log(results[4].url);
-                    // console.log(results[5].url);
-                    // console.log(results[6].url);
-                    console.log('---------------');
+                    
                     res.render('xem', { results, results2 })
                 })
             }
@@ -69,5 +62,31 @@ router.get('/xem/:cmnd/:idVi', (req, res) => {
         res.redirect('../')
     }
 })
+
+
+router.get('/duyetxem/:cmnd/:idVi', (req, res) => {
+
+    if (req.isAuthenticated()) {
+        var idVi = req.params.idVi;
+        con.query("SELECT * FROM docs \
+                    WHERE id_violation = '" + idVi + "' \
+                    ORDER BY count_views ASC", (err, results) => {
+            if (err) { throw err; }
+            else {
+                
+                con.query("SELECT * FROM land_owner, land_violation \
+                            WHERE id = " + idVi + " \
+                            AND cmnd = id_chudat", (err2, results2) => {
+                    if (err2) { throw err2 }
+                    
+                    res.render('duyetxem', { results, results2 })
+                })
+            }
+        })
+    } else {
+        res.redirect('../')
+    }
+})
+
 
 module.exports = router;

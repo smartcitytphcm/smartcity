@@ -8,7 +8,42 @@
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <script src="/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title><%=results2[0].hoten%></title>
     <style>
+        .loader {
+            position: fixed;
+            z-index: 99;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader > img {
+            width: 100px;
+        }
+
+        .loader.hidden {
+            animation: fadeOut 1s;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes fadeOut {
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .thumb {
+            height: 100px;
+            border: 1px solid black;
+            margin: 10px;
+        }
         .form-group {
             margin-top: 15px;
         }
@@ -86,8 +121,53 @@
             color: white;
         }
     </style>
-    <script>
-        $(function () {
+</head>
+
+<body>
+    <div class="loader">
+        <img src="/images/loader.gif" alt="Loading..." />
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6 col-md-push-2 col-md-6">
+                <div class="form-group">
+                    <label>Họ và tên:</label>
+                    <label name="hoten"><%=results2[0].hoten%></label>
+                </div>
+                <div class="form-group">
+                    <label>CMND:</label>
+                    <label name="cmnd"><%=results2[0].cmnd%></label>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+                <div class="form-group">
+                    <label>Mã Đất:</label>
+                    <label name="idVi"><%=results2[0].id%></label>
+                </div>
+                <div class="form-group">
+                    <label>Địa chỉ đất vi phạm:</label>
+                    <label name="diachiVP"><%=results2[0].diachiVP%></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tabConWrap">
+        <ul class="tabs">
+            <li><a href="<%= results[0]==undefined?'':results[0].url%>">Công văn UBND phường</a></li>
+            <li><a href="<%= results[1]==undefined?'':results[1].url%>">Phân loại hồ sơ</a></li>
+            <li><a href="<%= results[2]==undefined?'':results[2].url%>">Phiếu kiểm soát</a></li>
+            <li><a href="<%= results[3]==undefined?'':results[3].url%>">TTXPVPHC</a></li>
+            <li><a href="<%= results[4]==undefined?'':results[4].url%>">QDXP</a></li>
+            <li><a href="<%= results[5]==undefined?'':results[5].url%>">TTQDCC</a></li>
+            <li><a href="<%= results[6]==undefined?'':results[6].url%>%>">QDCC</a></li>
+        </ul>
+        <div class="tabContainer">
+            <iframe src="<%= results[0]==undefined?'':results[0].url%>"></iframe>
+        </div>
+    </div>
+</body>
+<script>
+    $(function () {
             var tabs = $('.tabs li a'),
                 tabContents = $('div.tabContainer');
 
@@ -106,48 +186,11 @@
                 $('h2#loading').remove();
             });
         });
-    </script>
-    <title><%=results2[0].hoten%></title>
-</head>
-
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-6 col-md-push-2 col-md-6">
-                <div class="form-group">
-                    <label><u>Họ và tên:</u></label>
-                    <label name="hoten"><i><%=results2[0].hoten%></i></label>
-                </div>
-                <div class="form-group">
-                    <label><u>CMND:</u></label>
-                    <label name="cmnd"><i><%=results2[0].cmnd%></i></label>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-4">
-                <div class="form-group">
-                    <label><u>Số biên bản:</u></label>
-                    <label name="soBB"><i><%=results2[0].soBB%></i></label>
-                </div>
-                <div class="form-group">
-                    <label><u>Địa chỉ đất vi phạm:</u></label>
-                    <label name="diachiVP">&nbsp;&nbsp;<i><%=results2[0].diachiVP%></i></label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="tabConWrap">
-        <ul class="tabs">
-            <li><a href="<%=results[0].url%>">Công văn UBND phường</a></li>
-            <li><a href="<%=results[1].url%>">Phân loại hồ sơ</a></li>
-            <li><a href="<%=results[2].url%>">Phiếu kiểm soát</a></li>
-            <li><a href="<%=results[3].url%>">TTXPVPHC</a></li>
-            <li><a href="<%=results[4].url%>">QDXP</a></li>
-            
-        </ul>
-        <div class="tabContainer">
-            <iframe src="<%=results[0].url%>"></iframe>
-        </div>
-    </div>
-</body>
-
+    window.addEventListener("load", function () {
+        const loader = document.querySelector(".loader");
+        setTimeout(function(){
+            loader.className += " hidden"; // class "loader hidden"
+        }, 4000);
+    });
+</script>
 </html>

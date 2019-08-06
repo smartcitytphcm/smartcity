@@ -101,3 +101,10 @@ section{
 .dropdown-submenu:hover>.dropdown-menu {
     display: block;
 }
+
+#checkSuccess{
+	display: none;
+}
+#checkFail{
+	display: none;
+}
