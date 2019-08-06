@@ -1,0 +1,230 @@
+﻿--
+-- Cơ sở dữ liệu: `smartcity`
+--
+
+-- --------------------------------------------------------
+--
+-- Cấu trúc bảng cho bảng `auth`
+--
+
+CREATE TABLE `auth` (
+  `id` TINYINT(3) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `role` varchar(10) NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Cấu trúc bảng cho bảng `account`
+--
+
+CREATE TABLE `account` (
+  `username` varchar(100) NOT NULL PRIMARY KEY,
+  `password` varchar(40) NULL,
+  `nameAc` varchar(50) NULL,
+  `id_auth` TINYINT(3) NOT NULL ,
+  `count_acc` smallint(5) NULL,
+FOREIGN KEY (`id_auth`) REFERENCES `auth`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--
+-- Cấu trúc bảng cho bảng `land_owner`
+--
+
+CREATE TABLE `land_owner` (
+  `hoten` TINYTEXT  NULL,
+  `cmnd` varchar(20) NOT NULL PRIMARY KEY,
+  `ngaycap` date NULL,
+  `diachicap` varchar(255) NULL,
+  `ngaysinh` date NULL,
+  `gioitinh` tinyint(1) NULL,
+  `quoctich` TINYTEXT NULL,
+  `diachiTT` varchar(255) NULL,
+  `nghenghiep` varchar(100) NULL,
+  `sdt` TINYTEXT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--
+-- Cấu trúc bảng cho bảng `land_violation`
+--
+
+CREATE TABLE `land_violation` (
+  `id` MEDIUMINT(8) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `diachiVP` varchar(255) NULL,
+  `thoigianVP` date NULL,
+  `thoigianLBB` date NULL,
+  `tienphat` bigint(14) NULL,
+  `tinhtrang` tinyint(2) NULL,
+  `id_chudat` varchar(20) NULL ,
+  `id_acc` varchar(100) NULL,
+  `thoigianthuc` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `gioLBB` varchar(10) NULL,
+  `soBB` int(10) NULL,
+  `hientrangCT` TEXT NULL,
+FOREIGN KEY (`id_chudat`) REFERENCES `land_owner`(`cmnd`),
+ FOREIGN KEY (`id_acc`) REFERENCES `account`(`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+--
+-- Cấu trúc bảng cho bảng `work_daily`
+--
+
+CREATE TABLE `work_daily` (
+  `id` MEDIUMINT(8) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `ngayTT` date NULL,
+  `diachiCT` varchar(255) NULL,
+  `hientrangCT` TEXT  NULL,
+  `canboPH` TINYTEXT NULL,
+  `canboTN` TINYTEXT NULL,
+  `xacnhan` tinyint(1) NULL,
+  `ghichu` varchar(255) NULL,
+  `thoigianthuc` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id_acc` varchar(100) NULL,
+FOREIGN KEY (`id_acc`) REFERENCES `account`(`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Cấu trúc bảng cho bảng `content`
+--
+
+CREATE TABLE `content` (
+  `id` MEDIUMINT(8) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `noidung` TEXT NULL,
+  `id_violation` MEDIUMINT(8) NULL,
+FOREIGN KEY (`id_violation`) REFERENCES `land_violation`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--
+-- Cấu trúc bảng cho bảng `docs`
+--
+
+CREATE TABLE `docs` (
+  `id` MEDIUMINT(8) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+`code` TINYTEXT NULL,
+  `url` varchar(100) NULL,
+  `id_violation` MEDIUMINT(8) NULL,
+  `count_views` TINYINT(2) NULL,
+FOREIGN KEY (`id_violation`) REFERENCES `land_violation`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Cấu trúc bảng cho bảng `images`
+--
+
+CREATE TABLE `images` (
+  `id` MEDIUMINT(8) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+`code` TINYTEXT NULL,
+  `url` varchar(100) NULL,
+  `id_WD` MEDIUMINT(8) NULL,
+  `id_Vi` MEDIUMINT(8) NULL,
+FOREIGN KEY (`id_WD`) REFERENCES `work_daily`(`id`),
+FOREIGN KEY (`id_Vi`) REFERENCES `land_violation`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+create table code_doc(
+id INT(11) not null AUTO_INCREMENT PRIMARY KEY,
+soTTQDXP SMALLINT(5) null,
+ngayTTQDXP date null,  
+soQDXP SMALLINT(5) null,
+ngayQDXP date null,  
+soTTQDCC SMALLINT(5) null,
+ngayTTQDCC date null,  
+soQDCC SMALLINT(5) null,
+ngayQDCC date null,
+id_violation MEDIUMINT(8),
+thoigianthuc timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,    
+FOREIGN KEY (`id_violation`) REFERENCES `land_violation`(`id`)
+);
+
+-- --------------------------------------------------------
+--
+-- Đang đổ dữ liệu cho bảng `auth`
+--
+
+INSERT INTO `auth` (`role`) VALUES
+('admin'),
+('user');
+
+-- --------------------------------------------------------
+--
+-- Đang đổ dữ liệu cho bảng `account`
+--
+
+INSERT INTO `account` (`username`, `password`, `nameAc`, `id_auth`, `count_acc`) VALUES
+('hieptan', 'hieptan123', 'Phường Hiệp Tân', 2, 10),
+('hoathanh', 'hoathanh123', 'Phường Hòa Thạnh', 2, 7),
+('phuthanh', 'phuthanh123', 'Phường Phú Thạnh', 2, 8),
+('phuthohoa', 'phuthohoa123', 'Phường Phú Thọ Hòa', 2, 6),
+('phutrung', 'phutrung123', 'Phường Phú Trung', 2, 9),
+('sonky', 'sonky123', 'Phường Sơn Kỳ', 2, 2),
+('tanphu', 'tanphu123', 'Quận Tân Phú', 1, NULL),
+('tanquy', 'tanquy123', 'Phường Tân Quý', 2, 3),
+('tansonnhi', 'tansonnhi123', 'Phường Tân Sơn Nhì', 2, 4),
+('tanthanh', 'tanthanh123', 'Phường Tân Thành', 2, 5),
+('tanthoihoa', 'tanthoihoa123', 'Phường Tân Thới Hòa', 2, 11),
+('taythanh', 'taythanh123', 'Phường Tây Thạnh', 2, 1);
+
+-- --------------------------------------------------------
+
+
+
+
+--
+-- Đang đổ dữ liệu cho bảng `land_owner`
+--
+
+INSERT INTO `land_owner` (`hoten`, `cmnd`, `ngaycap`, `diachicap`, `ngaysinh`, `gioitinh`, `quoctich`, `diachiTT`, `nghenghiep`, `sdt`) VALUES
+('Nguyễn Khánh Lâm', '025029130', '2015-03-03', 'Công an Thành phố Hồ Chí Minh', '1978-11-10', 1, 'Việt Nam', '249 đường Gò Dầu, phường Tân Quý, quận Tân Phú', NULL, NULL);
+
+-- --------------------------------------------------------
+
+
+--
+-- Đang đổ dữ liệu cho bảng `land_violation`
+--
+
+INSERT INTO `land_violation` (`diachiVP`, `thoigianVP`, `thoigianLBB`, `tienphat`, `tinhtrang`, `id_chudat`, `id_acc`, `thoigianthuc`, `gioLBB`, `soBB`, `hientrangCT`) VALUES
+('Một phần nhà 55 đường Lê Thúc Hoạch, phường Phú Thọ Hoà, quận Tân Phú', '2019-04-01', '2019-07-01', 0, 4, '025029130', 'phuthohoa', '2019-07-17 22:57:10', '14:00', 233, 'Công trình đã hoàn thành và đưa vào sử dụng. Quy mô: trệt + lửng + 04 lầu + sân thượng, kết cấu tường gạch sàn lót tôn đổ bê tông, mái tôn lót tôn đổ bê tông.');
+
+-- --------------------------------------------------------
+
+
+--
+-- Đang đổ dữ liệu cho bảng `content`
+--
+
+INSERT INTO `content` (`noidung`, `id_violation`) VALUES
+('1. Tăng diện tích sử dụng tại tầng lửng: 26,4m2, kết cấu lót tôn đổ bê tông', 1),
+('2. Tăng diện tích sử dụng ban công tạo thành phòng tại tầng 2, 3, 4, 5 và sân thượng: 56m2', 1),
+('3. Tăng diện tích sử dụng tại sân thượng: Tại khoảng lùi trước, diện tích 16m2; tại khoảng lùi sau: 28,56m2, kết cấu mái lót tôn đổ bê tông', 1);
+
+-- --------------------------------------------------------
+
+
+
+-- --------------------------------------------------------
+--
+-- Đang đổ dữ liệu cho bảng `docs`
+--
+
+INSERT INTO `docs` (`code`, `url`, `id_violation`, `count_views`) VALUES
+('1dOtuAHhtfdcA_lC87cAIgf5uPTQt-0na', 'https://docs.google.com/document/d/1dOtuAHhtfdcA_lC87cAIgf5uPTQt-0na/edit', 1, 4),
+('1B4ubtYAA_u5WxCUFljdbjPksLJc9JCJc', 'https://docs.google.com/document/d/1B4ubtYAA_u5WxCUFljdbjPksLJc9JCJc/edit', 1, 0),
+('1VJvMe_R9_p4by2jjhbNkmS-nq_6EJgE7', 'https://docs.google.com/document/d/1VJvMe_R9_p4by2jjhbNkmS-nq_6EJgE7/edit', 1, 1),
+('1M_-kE8x-VtCJsU6ZdyUPyUZF_YxqTHnj', 'https://docs.google.com/document/d/1M_-kE8x-VtCJsU6ZdyUPyUZF_YxqTHnj/edit', 1, 3),
+('1wfjz97tvikU4yqWaQjVudvwNdOkT7kOJ', 'https://docs.google.com/document/d/1wfjz97tvikU4yqWaQjVudvwNdOkT7kOJ/edit', 1, 2),
+('1AvvfPWUlBdMpEhJRSGOknsoK-qukX4gg', 'https://docs.google.com/document/d/1AvvfPWUlBdMpEhJRSGOknsoK-qukX4gg/edit', 1, 5),
+('19-x2jfV7XAztNVFtSnWcNZh8iPE5T9fj', 'https://docs.google.com/document/d/19-x2jfV7XAztNVFtSnWcNZh8iPE5T9fj/edit', 1, 6);
+
+--
+-- Đang đổ dữ liệu cho bảng `code_doc`
+--
+
+INSERT INTO `code_doc` (`soTTQDXP`, `ngayTTQDXP`, `soQDXP`, `ngayQDXP`, `soTTQDCC`, `ngayTTQDCC`, `soQDCC`, `ngayQDCC`, `id_violation`) VALUES
+(110, '2019-08-02', 123, '2019-08-03', 223, '2019-08-07', 23, '2019-08-07', 1);
+

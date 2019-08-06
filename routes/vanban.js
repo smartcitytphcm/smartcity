@@ -51,7 +51,7 @@ router.get('/xem/:cmnd/:idVi', (req, res) => {
                 
                 con.query("SELECT * FROM land_owner, land_violation \
                             WHERE id = " + idVi + " \
-                            AND cmnd = id_chudat", (err2, results2) => {
+                                AND cmnd = id_chudat", (err2, results2) => {
                     if (err2) { throw err2 }
                     
                     res.render('xem', { results, results2 })
@@ -76,7 +76,7 @@ router.get('/duyetxem/:cmnd/:idVi', (req, res) => {
                 
                 con.query("SELECT * FROM land_owner, land_violation \
                             WHERE id = " + idVi + " \
-                            AND cmnd = id_chudat", (err2, results2) => {
+                                AND cmnd = id_chudat", (err2, results2) => {
                     if (err2) { throw err2 }
                     
                     res.render('duyetxem', { results, results2 })

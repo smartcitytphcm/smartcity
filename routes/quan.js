@@ -189,7 +189,9 @@ router.post('/duyet', function (req, res, next) {
 
         // Update status violation 0 => 1 (mới => đợi duyệt QDXP)
         if (bdparams.soTTQDXP != '')
-            con.query("UPDATE `land_violation` SET `tinhtrang`= 1 WHERE id = " + idViD, (err) => {
+            con.query("UPDATE `land_violation` \
+                        SET `tinhtrang`= 1 \
+                        WHERE id = " + idViD, (err) => {
                 if (err) {
                     console.log('fail update status = 1');
                     throw err;
@@ -214,7 +216,9 @@ router.post('/duyet', function (req, res, next) {
 
         // Update status violation 2 => 3 (đã xử lý QĐXP => Đợi duyệt QDCC)
         if (bdparams.soTTQDCC != '')
-            con.query("UPDATE `land_violation` SET `tinhtrang`= 3 WHERE id = " + idViD, (err) => {
+            con.query("UPDATE `land_violation` \
+                        SET `tinhtrang`= 3 \
+                        WHERE id = " + idViD, (err) => {
                 if (err) {
                     console.log('fail update status = 3');
                     throw err;
@@ -251,23 +255,28 @@ router.post('/Add', function (req, res, next) {
     soQDCC = returnNull(soQDCC);
 
     console.log('data:::' + ngayQDCC)
-    con.query('DELETE FROM `code_doc` WHERE id_violation = ' + idVi, (err) => {
+    con.query('DELETE FROM `code_doc` \
+                WHERE id_violation = ' + idVi, (err) => {
         if (err) throw err;
         else {
             con.query("INSERT INTO `code_doc`(`soTTQDXP`, `ngayTTQDXP`, `soQDXP`, `ngayQDXP`, `soTTQDCC`, `ngayTTQDCC`, `soQDCC`, `ngayQDCC`, `id_violation`) \
-            VALUES ("+ soTTQDXP + ", '" + ngayTTQDXP + "', " + soQDXP + ", '" + ngayQDXP + "'," + soTTQDCC + ", '" + ngayTTQDCC + "'," + soQDCC + ", '" + ngayQDCC + "'," + idVi + ")", (err) => {
+                        VALUES ("+ soTTQDXP + ", '" + ngayTTQDXP + "', " + soQDXP + ", '" + ngayQDXP + "'," + soTTQDCC + ", '" + ngayTTQDCC + "'," + soQDCC + ", '" + ngayQDCC + "'," + idVi + ")", (err) => {
                     if (err) throw err;
                     else {
 
                         if (soQDXP != null)
-                            con.query("UPDATE `land_violation` SET `tinhtrang`= 2 WHERE id = " + idVi, (err) => {
+                            con.query("UPDATE `land_violation` \
+                                        SET `tinhtrang`= 2 \
+                                        WHERE id = " + idVi, (err) => {
                                 if (err) {
                                     console.log('fail update status = 2');
                                     throw err;
                                 }
                             });
                         if (soQDCC != null)
-                            con.query("UPDATE `land_violation` SET `tinhtrang`= 4 WHERE id = " + idVi, (err) => {
+                            con.query("UPDATE `land_violation` \
+                                        SET `tinhtrang`= 4 \
+                                        WHERE id = " + idVi, (err) => {
                                 if (err) {
                                     console.log('fail update status = 4');
                                     throw err;

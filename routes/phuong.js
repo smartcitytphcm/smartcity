@@ -20,7 +20,10 @@ router.get('/', function (req, res, next) {
     
     if (req.isAuthenticated() && req.session.passport.user.id_auth == '2') {
         var taikhoan = req.session.passport.user.username;
-        con.query("select *, wd.id as idWD, id.id as idIM  from work_daily wd left join images id on wd.id = id.id_WD where wd.id_acc = '" + taikhoan + "' ORDER BY thoigianthuc DESC", function (error, results, field) {           
+        con.query("SELECT *, wd.id as idWD, id.id as idIM  \
+                    FROM work_daily wd LEFT JOIN images id ON wd.id = id.id_WD \
+                    WHERE wd.id_acc = '" + taikhoan + "' \
+                    ORDER BY thoigianthuc DESC", function (error, results, field) {           
             if (error) throw error;
             console.log(results)
             res.render('trangchuPhuong', { results, taikhoan });
@@ -41,7 +44,8 @@ router.post('/capnhatPhuong', urlencodedParser, function (req, res, next) {
     var canboTN = req.body.canboTN;
     var ghichu = req.body.ghichu;
     //var form = new formidable.IncomingForm();
-    var sql = "INSERT INTO `work_daily`(`ngayTT`, `diachiCT`, `hientrangCT`, `canboPH`, `canboTN`, `xacnhan`, `ghichu`, `id_acc`) VALUES ('" + ngayTT + "','" + diachiCT + "','" + hientrangCT + "','" + canboPH + "','" + canboTN + "','0','" + ghichu + "','" + req.session.passport.user.username + "')";
+    var sql = "INSERT INTO `work_daily`(`ngayTT`, `diachiCT`, `hientrangCT`, `canboPH`, `canboTN`, `xacnhan`, `ghichu`, `id_acc`) \
+                VALUES ('" + ngayTT + "','" + diachiCT + "','" + hientrangCT + "','" + canboPH + "','" + canboTN + "','0','" + ghichu + "','" + req.session.passport.user.username + "')";
     con.query(sql, function (error, results, field) {
             if (error) {
                 console.log(error.message);
@@ -88,8 +92,9 @@ router.post('/suaPhuong', urlencodedParser, function (req, res, next) {
     var ghichu = req.body.ghichu;
 
 
-    var sql = "UPDATE `work_daily` SET `ngayTT`='" + ngayTT + "',`diachiCT`='" + diachiCT + "',`hientrangCT`='" + hientrangCT + "' ,`canboPH`='" + canboPH + "',`canboTN`='" + canboTN + "',`ghichu`='" + ghichu + "' where id = " + id;
-
+    var sql = "UPDATE `work_daily` \
+                SET `ngayTT`='" + ngayTT + "',`diachiCT`='" + diachiCT + "',`hientrangCT`='" + hientrangCT + "' ,`canboPH`='" + canboPH + "',`canboTN`='" + canboTN + "',`ghichu`='" + ghichu + "' \
+                WHERE id = " + id;
     con.query(sql, function (error, results, field) {
         if (error) {
             console.log(error.message);
@@ -111,11 +116,15 @@ router.post('/suaPhuong', urlencodedParser, function (req, res, next) {
 router.get('/xuphatphuong', function (req, res, next) {
     if (req.isAuthenticated() && req.session.passport.user.id_auth == '2') {
         var taikhoan = req.session.passport.user.username;
-        con.query("select *, vi.id as idVi, id.id as idIM  from land_violation vi left join images id on vi.id = id.id_Vi, land_owner ow where vi.id_chudat = ow.cmnd and id_acc = '" + taikhoan + "' ORDER BY vi.tinhtrang ASC, vi.thoigianthuc DESC", function (error, results, field) {
+        con.query("SELECT *, vi.id as idVi, id.id as idIM  \
+                    FROM land_violation vi LEFT JOIN images id ON vi.id = id.id_Vi, land_owner ow \
+                    WHERE vi.id_chudat = ow.cmnd and id_acc = '" + taikhoan + "' \
+                    ORDER BY vi.tinhtrang ASC, vi.thoigianthuc DESC", function (error, results, field) {
             if (error) {
                 throw error;
             } else {
-                con.query("select ct.* from content ct left JOIN land_violation vi on ct.id_violation = vi.id left JOIN account acc on vi.id_acc = acc.username where acc.username = '" + taikhoan + "'", (err, results_content) => {
+                con.query("SELECT ct.* from content ct LEFT JOIN land_violation vi ON ct.id_violation = vi.id LEFT JOIN account acc ON vi.id_acc = acc.username \
+                            WHERE acc.username = '" + taikhoan + "'", (err, results_content) => {
                     if (err)
                         throw err;
                     res.render('xuphatPhuong', { results, results_content , taikhoan});
@@ -156,7 +165,8 @@ router.post('/themvipham', urlencodedParser, function (req, res, next) {
     var hientrangCT = req.body.hientrangCT;
 
 
-    con.query("SELECT count(*) as count FROM `land_owner` where cmnd = '" + cmnd + "'", function (err, results) {
+    con.query("SELECT count(*) as count \
+                FROM `land_owner` where cmnd = '" + cmnd + "'", function (err, results) {
         if (err) {
             return err;
 
@@ -164,7 +174,7 @@ router.post('/themvipham', urlencodedParser, function (req, res, next) {
             console.log(results[0].count)
             if (results[0].count == 0) {
                 con.query("INSERT INTO `land_owner`(`hoten`, `cmnd`, `ngaycap`, `diachicap`, `ngaysinh`, `gioitinh`, `quoctich`, `diachiTT`, `nghenghiep`, `sdt`) \
-                VALUES ('" + hoten + "','" + cmnd + "','" + ngaycap + "','" + diachicap + "','" + ngaysinh + "','" + gioitinh + "','Việt Nam','" + diachiTT + "','" + nghenghiep + "','" + sdt + "')", function (error, result1, field) {
+                            VALUES ('" + hoten + "','" + cmnd + "','" + ngaycap + "','" + diachicap + "','" + ngaysinh + "','" + gioitinh + "','Việt Nam','" + diachiTT + "','" + nghenghiep + "','" + sdt + "')", function (error, result1, field) {
                     if (error) {
                         console.log('lỗi owner')
                         console.log(error.message);
@@ -173,7 +183,8 @@ router.post('/themvipham', urlencodedParser, function (req, res, next) {
                     }
                 });
             }
-            con.query("INSERT INTO `land_violation`(`diachiVP`, `thoigianVP`, `thoigianLBB` ,`tienphat`, `tinhtrang`, `id_chudat`, `id_acc`, `gioLBB`, `soBB`,`hientrangCT`) VALUES ('" + diachiVP + "','" + thoigianVP + "','" + thoigianLBB + "','" + tienphat + "',0,'" + cmnd + "', '" + req.session.passport.user.username + "','"+gioLBB+"','"+soBB+"','"+hientrangCT+"') ", function (error, result2, field) {
+            con.query("INSERT INTO `land_violation`(`diachiVP`, `thoigianVP`, `thoigianLBB` ,`tienphat`, `tinhtrang`, `id_chudat`, `id_acc`, `gioLBB`, `soBB`,`hientrangCT`) \
+                        VALUES ('" + diachiVP + "','" + thoigianVP + "','" + thoigianLBB + "','" + tienphat + "',0,'" + cmnd + "', '" + req.session.passport.user.username + "','"+gioLBB+"','"+soBB+"','"+hientrangCT+"') ", function (error, result2, field) {
                 if (error) {
                     console.log('lỗi violation')
                     console.log(error.message);
@@ -182,7 +193,8 @@ router.post('/themvipham', urlencodedParser, function (req, res, next) {
                     var i = 0;             
                     while (noidungVP[i]) {
                         var tam = i + 1;
-                        con.query("INSERT INTO `content`(`noidung`, `id_violation`) VALUES ('" + tam + ". " + noidungVP[i] + "', '" + result2.insertId + "')"), function (err) {
+                        con.query("INSERT INTO `content`(`noidung`, `id_violation`) \
+                                    VALUES ('" + tam + ". " + noidungVP[i] + "', '" + result2.insertId + "')"), function (err) {
                             if (err) throw err;
                         }
                         i += 1;
@@ -244,8 +256,12 @@ router.post('/suavipham', urlencodedParser, function (req, res, next) {
 
 
     var sql = {
-        a: "UPDATE `land_owner` SET `hoten`='" + hoten + "',`ngaycap`='" + ngaycap + "',`diachicap`='" + diachicap + "',`ngaysinh`='" + ngaysinh + "',`gioitinh`=" + gioitinh + ",`diachiTT`='" + diachiTT + "',`nghenghiep`='" + nghenghiep + "',`sdt`='" + sdt + "' where cmnd = '" + cmnd + "'",
-        b: "UPDATE `land_violation` SET `diachiVP`='" + diachiVP + "',`thoigianVP`='" + thoigianVP + "',`thoigianLBB`='" + thoigianLBB + "',`tienphat`=" + tienphat + ",`soBB`=" + soBB + ",`gioLBB`='" + gioLBB + "',`hientrangCT`='" + hientrangCT + "' WHERE id = " + idVP
+        a: "UPDATE `land_owner` \
+            SET `hoten`='" + hoten + "',`ngaycap`='" + ngaycap + "',`diachicap`='" + diachicap + "',`ngaysinh`='" + ngaysinh + "',`gioitinh`=" + gioitinh + ",`diachiTT`='" + diachiTT + "',`nghenghiep`='" + nghenghiep + "',`sdt`='" + sdt + "' \
+            WHERE cmnd = '" + cmnd + "'",
+        b: "UPDATE `land_violation` \
+            SET `diachiVP`='" + diachiVP + "',`thoigianVP`='" + thoigianVP + "',`thoigianLBB`='" + thoigianLBB + "',`tienphat`=" + tienphat + ",`soBB`=" + soBB + ",`gioLBB`='" + gioLBB + "',`hientrangCT`='" + hientrangCT + "' \
+            WHERE id = " + idVP
     };
 
     con.query(sql.a, function (error, results, field) {
@@ -264,7 +280,9 @@ router.post('/suavipham', urlencodedParser, function (req, res, next) {
             var i = 0;
 
             while (noidungVP[i]) {
-                con.query("UPDATE `content` SET `noidung`= '" + noidungVP[i] + "' WHERE  `id` =" + idcontent[i], function (err) {
+                con.query("UPDATE `content` \
+                            SET `noidung`= '" + noidungVP[i] + "' \
+                            WHERE  `id` =" + idcontent[i], function (err) {
                     if (err) throw err;
                     console.log("success update content")
                 })
