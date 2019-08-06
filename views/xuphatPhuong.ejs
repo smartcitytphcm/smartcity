@@ -264,6 +264,7 @@
 												</div>
 												<div class="form-group">
 													<label>Nội dung xử phạt</label>
+												</br><label style="color: red"><i>**Hiện hệ thống chỉ nhận được tối đa 4 nội dung.</i></label>
 													<div id="content">
 														<input type="text" class="form-control" name="noidungVP"
 															id="noidungVP" />
@@ -664,7 +665,6 @@
 														</div>
 														
 														<label>Nội dung xử phạt</label>
-													</br><label style="color: red"><i>**Hiện hệ thống chỉ nhận được tối đa 4 nội dung</i></label>
 															<%results_content.forEach(function(rows_content){
 																	if (rows_content.id_violation === rows.idVi){ %>
 														<div class="form-group">
@@ -766,10 +766,11 @@
 										</div>
 									</div>
 								</div>
-						</tr>
+							</tr>
 						<%});%>
 					</table>
 				</div>
+		</div>
 		</section>
 	</div>
 </body>

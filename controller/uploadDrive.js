@@ -132,6 +132,7 @@ module.exports = function (sourcefile, namefile, idViD, count_views) {
             // All permissions inserted
           }
         });
+        
         //insert url into table docs
         con.query("INSERT INTO `docs`(`code`, `url`, `id_violation`, `count_views`) VALUES ('" + file.data.id + "','https://docs.google.com/document/d/" + file.data.id + "/edit'," + idViD + ", "+ count_views +")", (err) => {
           if (err) throw err
